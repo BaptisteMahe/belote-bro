@@ -6,10 +6,6 @@ export type CardValue = (typeof CardValues)[number];
 
 export type Card = { value: CardValue; type: CardType };
 
-export const Deck: Card[] = CardTypes.flatMap((type) =>
-  CardValues.map((value) => ({ type, value })),
-);
-
 export const NonTrumpValues = {
   "7": 0,
   "8": 0,
@@ -32,9 +28,13 @@ export const TrumpValues = {
   J: 20,
 } as const;
 
-/**
- * For testing
- */
-export function getRandomCard(): Card {
-  return Deck[Math.floor(Math.random() * Deck.length)];
+export const TypeValueMap = {
+  heart: "❤",
+  diamond: "♦",
+  spade: "♤",
+  club: "♧",
+} as const satisfies { [key in CardType]: string };
+
+export function getId(Card: Card) {
+  return `${Card.type}${Card.value}`;
 }

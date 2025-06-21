@@ -1,7 +1,8 @@
 import { StyleSheet } from "react-native";
 import { ThemedView, ThemedViewProps } from "@/components/ThemedView";
-import { Player } from "@/components/game/player/player.model";
+import { Player } from "@/components/game/player/player";
 import { CardView } from "@/components/game/card/CardView";
+import { Card, getId } from "@/components/game/card/card";
 
 export type PayerViewProps = ThemedViewProps & {
   player: Player;
@@ -9,7 +10,6 @@ export type PayerViewProps = ThemedViewProps & {
 };
 
 export function PlayerView({ player, type, style, ...rest }: PayerViewProps) {
-  const rotation = getRotation(type);
   const numCards = player.hand.length;
   const centerIndex = (numCards - 1) / 2;
   const isMe = type === "bottom";
@@ -22,18 +22,18 @@ export function PlayerView({ player, type, style, ...rest }: PayerViewProps) {
     <ThemedView
       style={[
         styles.container,
-        { transform: [{ rotate: `${rotation}deg` }] },
+        { transform: [{ rotate: `${TypeRotationMap[type]}deg` }] },
         style,
       ]}
       {...rest}
     >
-      {player.hand.map((card, index) => {
+      {orderCards(player.hand).map((card, index) => {
         const cardRotation = (index - centerIndex) * rotationPerCard;
 
         return (
           <CardView
             card={card}
-            key={`${card.value}${card.type}`}
+            key={getId(card)}
             face={isMe ? "straight" : "verse"}
             style={{
               marginLeft: index > 0 ? -cardOverlap : 0,
@@ -52,17 +52,15 @@ export function PlayerView({ player, type, style, ...rest }: PayerViewProps) {
   );
 }
 
-function getRotation(type: "left" | "right" | "top" | "bottom") {
-  switch (type) {
-    case "left":
-      return 90;
-    case "right":
-      return 270;
-    case "bottom":
-      return 0;
-    case "top":
-      return 180;
-  }
+const TypeRotationMap = {
+  bottom: 0,
+  left: 90,
+  top: 180,
+  right: 270,
+} as const;
+
+function orderCards(cards: Card[]) {
+  return [...cards].sort((a, b) => getId(a).localeCompare(getId(b)));
 }
 
 const styles = StyleSheet.create({

@@ -1,7 +1,7 @@
 import { ThemedView, ThemedViewProps } from "@/components/ThemedView";
 import { StyleSheet } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
-import { Card } from "@/components/game/card/card.model";
+import { Card, TypeValueMap } from "@/components/game/card/card";
 import { useThemeColor } from "@/hooks/useThemeColor";
 
 export type CardViewProps = ThemedViewProps & {
@@ -28,18 +28,9 @@ export function CardView({ card, face, style, ...rest }: CardViewProps) {
         <ThemedText>{card.value}</ThemedText>
         <ThemedText>{card.value}</ThemedText>
       </ThemedView>
-      {(() => {
-        switch (card.type) {
-          case "heart":
-            return <ThemedText style={[{ fontSize: 22 }]}>❤</ThemedText>;
-          case "diamond":
-            return <ThemedText style={[{ fontSize: 22 }]}>♦</ThemedText>;
-          case "spade":
-            return <ThemedText style={[{ fontSize: 22 }]}>♤</ThemedText>;
-          case "club":
-            return <ThemedText style={[{ fontSize: 22 }]}>♧</ThemedText>;
-        }
-      })()}
+      <ThemedText style={[{ fontSize: 22 }]}>
+        {TypeValueMap[card.type]}
+      </ThemedText>
       <ThemedView style={styles.value}>
         <ThemedText>{card.value}</ThemedText>
         <ThemedText>{card.value}</ThemedText>

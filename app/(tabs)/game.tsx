@@ -1,78 +1,43 @@
 import { StyleSheet } from "react-native";
 import { ThemedView } from "@/components/ThemedView";
-import { Player } from "@/components/game/player/player.model";
 import { PlayerView } from "@/components/game/player/PlayerView";
-import { getRandomCard } from "@/components/game/card/card.model";
-import { uuid } from "expo-modules-core";
-
-const players: Player[] = [
-  {
-    id: uuid.v4(),
-    hand: [
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-    ],
-  },
-  {
-    id: uuid.v4(),
-    hand: [
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-    ],
-  },
-  {
-    id: uuid.v4(),
-    hand: [
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-    ],
-  },
-  {
-    id: uuid.v4(),
-    hand: [
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-      getRandomCard(),
-    ],
-  },
-];
+import { useEffect, useReducer } from "react";
+import { gameStateReducer } from "@/components/game/game-state.reducer";
+import { GameTableView } from "@/components/game/table/GameTableView";
+import { initGameState } from "@/components/game/game-state";
 
 export default function GameScreen() {
+  const [gameState, dispatch] = useReducer(gameStateReducer, initGameState());
+
+  useEffect(() => {
+    if (gameState.step.name === "init") dispatch({ type: "initialised" });
+  }, [gameState.step.name]);
+
   return (
     <ThemedView style={styles.container}>
       <ThemedView style={styles.topRow}>
-        <PlayerView player={players[2]} type="top"></PlayerView>
+        <PlayerView player={gameState.players.top} type="top"></PlayerView>
       </ThemedView>
       <ThemedView style={styles.middleRow}>
-        <PlayerView player={players[0]} type="left"></PlayerView>
-        <ThemedView style={styles.table}></ThemedView>
-        <PlayerView player={players[1]} type="right"></PlayerView>
+        <PlayerView player={gameState.players.left} type="left"></PlayerView>
+        <GameTableView
+          gameStep={gameState.step}
+          onCardTouched={(card) =>
+            dispatch({
+              type: "trumpChoose",
+              card,
+              player: "bottom",
+              trump: card.type,
+            })
+          }
+        ></GameTableView>
+        <PlayerView player={gameState.players.right} type="right"></PlayerView>
       </ThemedView>
       <ThemedView style={styles.bottomRow}>
-        <PlayerView player={players[3]} type="bottom"></PlayerView>
+        <PlayerView
+          player={gameState.players.bottom}
+          type="bottom"
+        ></PlayerView>
       </ThemedView>
     </ThemedView>
   );
@@ -83,6 +48,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     height: "100%",
     width: "100%",
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   topRow: {
     width: "100%",
@@ -103,11 +70,5 @@ const styles = StyleSheet.create({
     height: "25%",
     justifyContent: "center",
     alignItems: "center",
-  },
-  table: {
-    borderColor: "red",
-    borderWidth: 1,
-    height: 50,
-    width: 50,
   },
 });

@@ -5,34 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a222e867-d4b6-4d69-a818-f01151ff076e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLinters/eslint.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/(tabs)/game.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/game/card/CardView.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/game/card/card.model.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/game/game.model.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/game/player/PlayerView.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/game/player/player.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/game/game-state.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/game/player/player.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/friends.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/friends.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/+not-found.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/+not-found.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ParallaxScrollView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ParallaxScrollView.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ThemedText.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ThemedText.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ThemedView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ThemedView.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/IconSymbol.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/IconSymbol.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/constants/Colors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/Colors.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eslint.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/eslint.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hooks/useColorScheme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/useColorScheme.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hooks/useColorScheme.web.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/useColorScheme.web.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/game.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/game.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/game/card/CardView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/game/card/CardView.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/game/card/card.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/components/game/card/card.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/game/game.model.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/game/player/PlayerView.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/game/player/PlayerView.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/game/player/player.model.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/hooks/useThemeColor.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/useThemeColor.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpm-workspace.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-workspace.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/reset-project.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,6 +64,7 @@
     "javascript.nodejs.core.library.configured.version": "20.13.1",
     "javascript.nodejs.core.library.typings.version": "20.13.0",
     "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "/Users/baptistemahe/Documents/repos/belote-bro/components/game/actions",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
@@ -103,7 +86,11 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/components/game/actions" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/components/game/actions" />
       <recent name="$PROJECT_DIR$/components/game/card" />
     </key>
   </component>
@@ -123,7 +110,7 @@
       <updated>1750363963687</updated>
       <workItem from="1750363964883" duration="18000" />
       <workItem from="1750363989062" duration="12343000" />
-      <workItem from="1750432093660" duration="7938000" />
+      <workItem from="1750432093660" duration="48437000" />
     </task>
     <servers />
   </component>
