@@ -5,7 +5,7 @@ import {
 } from "@/components/game/player/player";
 import { Card, CardType } from "@/components/game/card/card";
 import { Deck, shuffle } from "@/components/game/deck/deck";
-import { NonNullableProps } from "@/utils/non-nullable-props";
+import { BoardFullState, BoardState } from "@/components/game/board/board";
 
 export type GameState = {
   step: GameStep;
@@ -56,15 +56,6 @@ export type Scores = {
 };
 
 export type RoundNum = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
-
-export type BoardState = {
-  bottom: Card | null;
-  top: Card | null;
-  left: Card | null;
-  right: Card | null;
-};
-
-export type BoardFullState = NonNullableProps<BoardState>;
 
 export function initGameState(
   scores: GameState["scores"] = {

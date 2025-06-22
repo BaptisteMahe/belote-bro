@@ -10,7 +10,7 @@ export type GameTableViewProps = ThemedViewProps & {
   onCardTouched: (card: Card) => void;
 };
 
-export function GameTableView({
+export function GameBoardView({
   gameStep,
   onCardTouched,
   style,

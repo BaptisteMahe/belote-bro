@@ -19,3 +19,7 @@ export function initPlayer(): Player {
 export function isUs(player: PlayerType) {
   return ["bottom", "top"].includes(player);
 }
+
+export function areOpponents(player: PlayerType, other: PlayerType) {
+  return isUs(other) !== isUs(player);
+}

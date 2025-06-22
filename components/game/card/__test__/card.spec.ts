@@ -153,9 +153,9 @@ describe("card", () => {
     it("should return true if the player has trump higher than any trump than played before", () => {
       expect(
         canPlay(
-          { value: "V", type: "heart" },
+          { value: "J", type: "heart" },
           [
-            { value: "V", type: "heart" },
+            { value: "J", type: "heart" },
             { value: "7", type: "heart" },
             { value: "8", type: "heart" },
           ],
@@ -172,12 +172,56 @@ describe("card", () => {
       ).toBe(true);
     });
 
+    it("should return true if the card is not a trump and player has not the asked type which is not a trump in hand and has trump but it's his partner who has the trick with a trump", () => {
+      expect(
+        canPlay(
+          { value: "J", type: "heart" },
+          [
+            { value: "J", type: "heart" },
+            { value: "7", type: "heart" },
+            { value: "8", type: "diamond" },
+          ],
+          "bottom",
+          {
+            bottom: null,
+            left: { value: "7", type: "spade" },
+            top: { value: "9", type: "diamond" },
+            right: { value: "A", type: "spade" },
+          },
+          "spade",
+          "diamond",
+        ),
+      ).toBe(true);
+    });
+
+    it("should return true if the card is not a trump and player has not the asked type which is not a trump in hand and has trump but it's his partner who has the trick without a trump", () => {
+      expect(
+        canPlay(
+          { value: "J", type: "heart" },
+          [
+            { value: "J", type: "heart" },
+            { value: "7", type: "heart" },
+            { value: "8", type: "diamond" },
+          ],
+          "bottom",
+          {
+            bottom: null,
+            left: { value: "7", type: "spade" },
+            top: { value: "A", type: "spade" },
+            right: { value: "10", type: "spade" },
+          },
+          "spade",
+          "diamond",
+        ),
+      ).toBe(true);
+    });
+
     it("should return false if the card is not of asked type and the player has asked type in hand", () => {
       expect(
         canPlay(
-          { value: "V", type: "heart" },
+          { value: "J", type: "heart" },
           [
-            { value: "V", type: "heart" },
+            { value: "J", type: "heart" },
             { value: "7", type: "heart" },
             { value: "8", type: "diamond" },
           ],
@@ -194,12 +238,12 @@ describe("card", () => {
       ).toBe(false);
     });
 
-    it("should return false if the asked type is trump and the card is lower than the highest on board and the player have higher card than board in hand", () => {
+    it("should return false if the asked type is trump and the card is lower than played before and the player have higher card than board in hand", () => {
       expect(
         canPlay(
           { value: "7", type: "heart" },
           [
-            { value: "V", type: "heart" },
+            { value: "J", type: "heart" },
             { value: "7", type: "heart" },
             { value: "8", type: "diamond" },
           ],
@@ -212,6 +256,50 @@ describe("card", () => {
           },
           "heart",
           "heart",
+        ),
+      ).toBe(false);
+    });
+
+    it("should return false if the asked type is not trump and the player hasn't any asked type card and has trump and the card is not a trump and it's the opponent who's wining the trick", () => {
+      expect(
+        canPlay(
+          { value: "7", type: "heart" },
+          [
+            { value: "J", type: "heart" },
+            { value: "7", type: "heart" },
+            { value: "8", type: "diamond" },
+          ],
+          "bottom",
+          {
+            bottom: null,
+            left: null,
+            top: null,
+            right: { value: "A", type: "spade" },
+          },
+          "spade",
+          "diamond",
+        ),
+      ).toBe(false);
+    });
+
+    it("should return false if the asked type is not trump and the player hasn't any asked type card and has trump and the card is not a trump and it's the opponent who's wining the trick with a trump", () => {
+      expect(
+        canPlay(
+          { value: "7", type: "heart" },
+          [
+            { value: "J", type: "heart" },
+            { value: "7", type: "heart" },
+            { value: "8", type: "diamond" },
+          ],
+          "bottom",
+          {
+            bottom: null,
+            left: null,
+            top: { value: "9", type: "spade" },
+            right: { value: "A", type: "diamond" },
+          },
+          "spade",
+          "diamond",
         ),
       ).toBe(false);
     });

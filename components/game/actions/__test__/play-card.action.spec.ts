@@ -1,9 +1,10 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { handlePlayCard, PlayCardAction } from "../play-card.action";
-import { BoardFullState, GameState } from "@/components/game/game-state";
+import { GameState } from "@/components/game/game-state";
 import { Card } from "@/components/game/card/card";
 import * as actionsUtil from "@/components/game/actions/actions.util";
 import assert from "node:assert";
+import { BoardFullState } from "@/components/game/board/board";
 
 describe("play-card.action", () => {
   describe("handlePlayCard", () => {

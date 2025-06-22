@@ -1,19 +1,16 @@
-import {
-  Card,
-  CardType,
-  getId,
-  NonTrumpValues,
-  TrumpValues,
-} from "@/components/game/card/card";
+import { Card, getId } from "@/components/game/card/card";
 import {
   BoardFullState,
-  BoardState,
   GameState,
   initGameState,
   RoundNum,
 } from "@/components/game/game-state";
 import { getPlayerOrder } from "@/components/game/actions/actions.util";
 import { isUs, PlayerType, PlayerTypes } from "@/components/game/player/player";
+import {
+  computeBoardScore,
+  computeWinner,
+} from "@/components/game/board/board";
 
 export type PlayCardAction = {
   type: "playCard";
@@ -140,55 +137,6 @@ function removeCardFromPlayersHand(
       ),
     },
   };
-}
-
-function computeWinner(
-  board: BoardFullState,
-  askedType: CardType,
-  trump: CardType,
-): PlayerType {
-  const cardsWithType: { card: Card; type: PlayerType }[] = [
-    { card: board.bottom, type: "bottom" },
-    { card: board.top, type: "top" },
-    { card: board.left, type: "left" },
-    { card: board.right, type: "right" },
-  ];
-
-  // If there is a trump, the biggest trump wins
-  if (cardsWithType.some((cardWithType) => cardWithType.card.type === trump)) {
-    const maxValue = Math.max(
-      ...cardsWithType
-        .filter((cardWithType) => cardWithType.card.type === trump)
-        .map((cardWithType) => TrumpValues[cardWithType.card.value]),
-    );
-    return cardsWithType.find(
-      (cardWithType) => TrumpValues[cardWithType.card.value] === maxValue,
-    )!.type;
-  }
-
-  // If there isn't any trump, the biggest asked type wins
-  const maxValue = Math.max(
-    ...cardsWithType
-      .filter((cardWithType) => cardWithType.card.type === askedType)
-      .map((cardWithType) => NonTrumpValues[cardWithType.card.value]),
-  );
-  return cardsWithType.find(
-    (cardWithType) => NonTrumpValues[cardWithType.card.value] === maxValue,
-  )!.type;
-}
-
-function computeBoardScore(board: BoardState, trump: CardType) {
-  const cards = [board.bottom, board.top, board.left, board.right];
-  return cards
-    .filter((card) => !!card)
-    .reduce(
-      (score, card) =>
-        score +
-        (card.type === trump
-          ? TrumpValues[card.value]
-          : NonTrumpValues[card.value]),
-      0,
-    );
 }
 
 function computeRoundResultScore(

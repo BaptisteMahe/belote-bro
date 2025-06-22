@@ -3,7 +3,7 @@ import { ThemedView } from "@/components/ThemedView";
 import { PlayerView } from "@/components/game/player/PlayerView";
 import { useEffect, useReducer } from "react";
 import { gameStateReducer } from "@/components/game/game-state.reducer";
-import { GameTableView } from "@/components/game/table/GameTableView";
+import { GameBoardView } from "@/components/game/board/GameBoardView";
 import { initGameState } from "@/components/game/game-state";
 
 export default function GameScreen() {
@@ -20,7 +20,7 @@ export default function GameScreen() {
       </ThemedView>
       <ThemedView style={styles.middleRow}>
         <PlayerView player={gameState.players.left} type="left"></PlayerView>
-        <GameTableView
+        <GameBoardView
           gameStep={gameState.step}
           onCardTouched={(card) =>
             dispatch({
@@ -30,7 +30,7 @@ export default function GameScreen() {
               trump: card.type,
             })
           }
-        ></GameTableView>
+        ></GameBoardView>
         <PlayerView player={gameState.players.right} type="right"></PlayerView>
       </ThemedView>
       <ThemedView style={styles.bottomRow}>

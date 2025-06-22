@@ -1,5 +1,5 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { initPlayer, isUs } from "../player";
+import { areOpponents, initPlayer, isUs } from "../player";
 import { uuid } from "expo-modules-core";
 
 // Mock uuid.v4 to return a predictable value
@@ -52,6 +52,16 @@ describe("player", () => {
     it("should return false for 'left' and 'right' players", () => {
       expect(isUs("left")).toBe(false);
       expect(isUs("right")).toBe(false);
+    });
+  });
+
+  describe("areOpponents", () => {
+    it("should return true for opponents", () => {
+      expect(areOpponents("bottom", "right")).toBe(true);
+    });
+
+    it("should return false for allies", () => {
+      expect(areOpponents("left", "right")).toBe(false);
     });
   });
 });
