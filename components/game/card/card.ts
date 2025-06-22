@@ -35,6 +35,6 @@ export const TypeValueMap = {
   club: "♧",
 } as const satisfies { [key in CardType]: string };
 
-export function getId(Card: Card) {
+export function getId(Card: Card): `${CardType}${CardValue}` {
   return `${Card.type}${Card.value}`;
 }

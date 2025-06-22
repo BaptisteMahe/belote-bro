@@ -7,11 +7,11 @@
   },
   "scripts": {
     "start": "expo start",
-    "test": "jest --watchAll",
-    "reset-project": "node ./scripts/reset-project.js",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
+    "start:android": "expo start --android",
+    "start:ios": "expo start --ios",
+    "start:web": "expo start --web",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
     "lint": "expo lint"
   },
   "dependencies": {
