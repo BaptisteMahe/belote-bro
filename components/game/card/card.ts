@@ -1,3 +1,6 @@
+import { BoardState } from "@/components/game/game-state";
+import { PlayerType } from "@/components/game/player/player";
+
 export const CardTypes = ["heart", "diamond", "spade", "club"] as const;
 export type CardType = (typeof CardTypes)[number];
 
@@ -37,4 +40,19 @@ export const TypeValueMap = {
 
 export function getId(Card: Card): `${CardType}${CardValue}` {
   return `${Card.type}${Card.value}`;
+}
+
+export function isTrump(card: Card, trump: CardType) {
+  return card.type === trump;
+}
+
+export function canPlay(
+  card: Card,
+  hand: Card[],
+  player: PlayerType,
+  board: BoardState,
+  askedType: CardType | null,
+  trump: CardType,
+): boolean {
+  throw new Error("Not implemented");
 }
