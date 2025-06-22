@@ -3,6 +3,7 @@ import { handleTrumpChoose, TrumpChooseAction } from "../trump-choose.action";
 import { GameState } from "@/components/game/game-state";
 import { Card } from "@/components/game/card/card";
 import * as actionsUtil from "@/components/game/actions/actions.util";
+import assert from "node:assert";
 
 describe("trump-choose.action", () => {
   describe("handleTrumpChoose", () => {
@@ -108,10 +109,7 @@ describe("trump-choose.action", () => {
 
       // Check that the state transitioned to 'play'
       expect(result.step.name).toBe("play");
-      if (result.step.name !== "play")
-        throw new Error(
-          `Expected step name to be 'play', but got ${result.step.name}`,
-        );
+      assert(result.step.name === "play");
       expect(result.step.trump).toBe(action.trump);
       expect(result.step.starter).toBe(state.step.starter);
       expect(result.step.leader).toBe(action.player);

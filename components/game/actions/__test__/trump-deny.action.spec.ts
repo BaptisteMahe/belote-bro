@@ -3,6 +3,7 @@ import { handleTrumpDeny, TrumpDenyAction } from "../trump-deny.action";
 import * as gameStateModule from "@/components/game/game-state";
 import { GameState, initGameState } from "@/components/game/game-state";
 import { Card } from "@/components/game/card/card";
+import assert from "node:assert";
 
 describe("trump-deny.action", () => {
   const mockCard: Card = { type: "heart", value: "A" };
@@ -35,10 +36,7 @@ describe("trump-deny.action", () => {
       const result = handleTrumpDeny(state, mockAction);
 
       expect(result.step.name).toBe("chooseTrump");
-      if (result.step.name !== "chooseTrump")
-        throw new Error(
-          `Expected step name to be 'chooseTrump', but got ${result.step.name}`,
-        );
+      assert(result.step.name === "chooseTrump");
       expect(result.step.turn).toBe("left");
       expect(result.step.round).toBe(0);
       expect(result.step.starter).toBe("bottom");
@@ -59,10 +57,7 @@ describe("trump-deny.action", () => {
       const result = handleTrumpDeny(state, mockAction);
 
       expect(result.step.name).toBe("chooseTrump");
-      if (result.step.name !== "chooseTrump")
-        throw new Error(
-          `Expected step name to be 'chooseTrump', but got ${result.step.name}`,
-        );
+      assert(result.step.name === "chooseTrump");
       expect(result.step.turn).toBe("bottom");
       expect(result.step.round).toBe(1);
       expect(result.step.starter).toBe("bottom");
