@@ -8,9 +8,16 @@ import { getId } from "@/components/game/card/card.util";
 export type PayerViewProps = ThemedViewProps & {
   player: Player;
   type: "left" | "right" | "top" | "bottom";
+  inTurn: boolean;
 };
 
-export function PlayerView({ player, type, style, ...rest }: PayerViewProps) {
+export function PlayerView({
+  player,
+  type,
+  inTurn,
+  style,
+  ...rest
+}: PayerViewProps) {
   const numCards = player.hand.length;
   const centerIndex = (numCards - 1) / 2;
   const isMe = type === "bottom";
@@ -24,6 +31,7 @@ export function PlayerView({ player, type, style, ...rest }: PayerViewProps) {
       style={[
         styles.container,
         { transform: [{ rotate: `${TypeRotationMap[type]}deg` }] },
+        inTurn ? styles.inTurnPlayer : null,
         style,
       ]}
       {...rest}
@@ -67,5 +75,11 @@ function orderCards(cards: Card[]) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
+  },
+  inTurnPlayer: {
+    borderColor: "red",
+    borderWidth: 2,
+    borderStyle: "dashed",
+    borderRadius: 10,
   },
 });

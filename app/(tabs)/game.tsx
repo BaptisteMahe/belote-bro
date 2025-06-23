@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Button, StyleSheet } from "react-native";
 import { ThemedView } from "@/components/ThemedView";
 import { PlayerView } from "@/components/game/player/PlayerView";
 import { useEffect, useReducer } from "react";
@@ -7,6 +7,7 @@ import { GameBoardView } from "@/components/game/board/GameBoardView";
 import { initGameState } from "@/components/game/game-state/game-state.util";
 import { ScoreBoardView } from "@/components/game/score/ScoreBoardView";
 import { PreviousTrickView } from "@/components/game/previous-trick/PreviousTrickView";
+import { ChooseTrumpModal } from "@/components/game/choose-trump/ChooseTrumpModal";
 
 export default function GameScreen() {
   const [gameState, dispatch] = useReducer(gameStateReducer, initGameState());
@@ -17,6 +18,18 @@ export default function GameScreen() {
 
   return (
     <ThemedView style={styles.container}>
+      <ChooseTrumpModal
+        gameState={gameState}
+        onChoose={(type, card) =>
+          dispatch({
+            type: "trumpChoose",
+            card,
+            player: "bottom",
+            trump: type,
+          })
+        }
+        onDeny={() => dispatch({ type: "trumpDeny" })}
+      ></ChooseTrumpModal>
       <ThemedView style={styles.topRow}>
         <PreviousTrickView
           previousTrick={
@@ -25,7 +38,11 @@ export default function GameScreen() {
               : null
           }
         ></PreviousTrickView>
-        <PlayerView player={gameState.players.top} type="top"></PlayerView>
+        <PlayerView
+          player={gameState.players.top}
+          type="top"
+          inTurn={"turn" in gameState.step && gameState.step.turn === "top"}
+        ></PlayerView>
         <ScoreBoardView
           gameScores={gameState.scores}
           roundScores={
@@ -34,25 +51,28 @@ export default function GameScreen() {
         ></ScoreBoardView>
       </ThemedView>
       <ThemedView style={styles.middleRow}>
-        <PlayerView player={gameState.players.left} type="left"></PlayerView>
-        <GameBoardView
-          gameStep={gameState.step}
-          onCardTouched={(card) =>
-            dispatch({
-              type: "trumpChoose",
-              card,
-              player: "bottom",
-              trump: card.type,
-            })
-          }
-        ></GameBoardView>
-        <PlayerView player={gameState.players.right} type="right"></PlayerView>
+        <PlayerView
+          player={gameState.players.left}
+          type="left"
+          inTurn={"turn" in gameState.step && gameState.step.turn === "left"}
+        ></PlayerView>
+        <GameBoardView gameStep={gameState.step}></GameBoardView>
+        <PlayerView
+          player={gameState.players.right}
+          type="right"
+          inTurn={"turn" in gameState.step && gameState.step.turn === "right"}
+        ></PlayerView>
       </ThemedView>
       <ThemedView style={styles.bottomRow}>
         <PlayerView
           player={gameState.players.bottom}
           type="bottom"
+          inTurn={"turn" in gameState.step && gameState.step.turn === "bottom"}
         ></PlayerView>
+        <Button
+          title="Reset"
+          onPress={() => dispatch({ type: "reset" })}
+        ></Button>
       </ThemedView>
     </ThemedView>
   );

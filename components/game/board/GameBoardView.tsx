@@ -1,19 +1,16 @@
 import { ThemedView, ThemedViewProps } from "@/components/ThemedView";
 import { GameStep } from "@/components/game/game-state/game-state.model";
 import { CardView } from "@/components/game/card/CardView";
-import { Card } from "../card/card.model";
 import { StyleSheet } from "react-native";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { getId } from "@/components/game/card/card.util";
 
 export type GameTableViewProps = ThemedViewProps & {
   gameStep: GameStep;
-  onCardTouched: (card: Card) => void;
 };
 
 export function GameBoardView({
   gameStep,
-  onCardTouched,
   style,
   ...rest
 }: GameTableViewProps) {
@@ -22,11 +19,7 @@ export function GameBoardView({
   if (gameStep.name === "chooseTrump")
     return (
       <ThemedView style={[styles.container, { borderColor }, style]} {...rest}>
-        <CardView
-          card={gameStep.card}
-          face="straight"
-          onTouchEnd={() => onCardTouched(gameStep.card)}
-        ></CardView>
+        <CardView card={gameStep.card} face="straight"></CardView>
       </ThemedView>
     );
 

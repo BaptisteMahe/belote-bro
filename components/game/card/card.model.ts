@@ -15,7 +15,7 @@ export const NonTrumpValues = {
   K: 4,
   "10": 10,
   A: 11,
-} as const;
+} as const satisfies { [key in CardValue]: number };
 
 export const TrumpValues = {
   "7": 0,
@@ -26,11 +26,11 @@ export const TrumpValues = {
   A: 11,
   "9": 14,
   J: 20,
-} as const;
+} as const satisfies { [key in CardValue]: number };
 
 export const TypeValueMap = {
   heart: "❤",
   diamond: "♦",
-  spade: "♤",
-  club: "♧",
+  spade: "♠",
+  club: "♣",
 } as const satisfies { [key in CardType]: string };
