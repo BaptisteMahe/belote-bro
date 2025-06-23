@@ -32,7 +32,9 @@ export function handlePlayCard(
       `Action ${action.type} impossible in this step ${state.step.name}`,
     );
 
-  const order = getPlayerOrder(state.step.starter);
+  const order = getPlayerOrder(
+    state.step.trick.previousTrick?.winner ?? state.step.starter,
+  );
   const turnIndex = order.indexOf(state.step.trick.turn);
 
   if (turnIndex === 3) {
