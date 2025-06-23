@@ -3,7 +3,7 @@ import { PlayGameStep } from "@/components/game/game-state/game-state.model";
 import { StyleSheet } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 
-export type LastTrickViewProps = ThemedViewProps & {
+export type PreviousTrickViewProps = ThemedViewProps & {
   previousTrick: PlayGameStep["trick"]["previousTrick"];
 };
 
@@ -11,7 +11,7 @@ export function PreviousTrickView({
   previousTrick,
   style,
   ...rest
-}: LastTrickViewProps) {
+}: PreviousTrickViewProps) {
   return (
     <ThemedView style={[style, styles.container]} {...rest}>
       <ThemedText>Last trick</ThemedText>
@@ -26,5 +26,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     height: 100,
     width: 100,
+    display: "flex",
+    alignItems: "center",
   },
 });
