@@ -9,7 +9,10 @@ import {
   computeBoardScore,
   computeWinner,
 } from "@/components/game/board/board.util";
-import { BoardFullState } from "@/components/game/board/board.model";
+import {
+  BoardFullState,
+  EmptyBoard,
+} from "@/components/game/board/board.model";
 import { isUs } from "@/components/game/player/player.util";
 import { initGameState } from "@/components/game/game-state/game-state.util";
 import { getId } from "@/components/game/card/card.util";
@@ -95,12 +98,7 @@ export function handlePlayCard(
           ...state.step.trick,
           num: (state.step.trick.num + 1) as TrickNum,
           turn: winner,
-          board: {
-            bottom: null,
-            top: null,
-            left: null,
-            right: null,
-          },
+          board: EmptyBoard,
           askedType: null,
           previousTrick: { board, winner },
         },

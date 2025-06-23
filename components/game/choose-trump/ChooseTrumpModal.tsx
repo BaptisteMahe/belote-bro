@@ -34,6 +34,7 @@ export function ChooseTrumpModal({
         gameState.step.turn === "bottom"
       }
       onRequestClose={onDeny}
+      style={[style]}
     >
       <ThemedView style={[style, styles.container]} {...rest}>
         {gameState.step.name === "chooseTrump" &&
@@ -111,9 +112,16 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     flexDirection: "row",
+    gap: 10,
+    borderWidth: 2,
+    borderRadius: 10,
+    borderColor: "gray",
+    padding: 10,
   },
   buttonsContainer: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-around",
   },
 });

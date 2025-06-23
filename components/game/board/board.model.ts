@@ -9,3 +9,10 @@ export type BoardState = {
 };
 
 export type BoardFullState = NonNullableProps<BoardState>;
+
+export const EmptyBoard: BoardState = {
+  bottom: null,
+  top: null,
+  left: null,
+  right: null,
+};

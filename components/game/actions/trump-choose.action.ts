@@ -2,6 +2,7 @@ import { Card, CardType } from "@/components/game/card/card.model";
 import { PlayerType } from "@/components/game/player/player.model";
 import { GameState } from "@/components/game/game-state/game-state.model";
 import { deal } from "@/components/game/actions/actions.util";
+import { EmptyBoard } from "@/components/game/board/board.model";
 
 export type TrumpChooseAction = {
   type: "trumpChoose";
@@ -44,12 +45,7 @@ export function handleTrumpChoose(
       trick: {
         num: 0,
         turn: state.step.starter,
-        board: {
-          bottom: null,
-          top: null,
-          left: null,
-          right: null,
-        },
+        board: EmptyBoard,
         askedType: null,
         previousTrick: null,
       },

@@ -4,20 +4,29 @@ import { Player } from "@/components/game/player/player.model";
 import { CardView } from "@/components/game/card/CardView";
 import { Card } from "@/components/game/card/card.model";
 import { getId } from "@/components/game/card/card.util";
+import { canPlayCard } from "@/components/game/card/can-play-card";
+import { useContext } from "react";
+import { TrumpContext } from "@/components/game/card/trump.context";
+import { TrickContext } from "@/components/game/board/trick.context";
 
 export type PayerViewProps = ThemedViewProps & {
   player: Player;
   type: "left" | "right" | "top" | "bottom";
   inTurn: boolean;
+  onCardPlayed: (car: Card) => void;
 };
 
 export function PlayerView({
   player,
   type,
   inTurn,
+  onCardPlayed,
   style,
   ...rest
 }: PayerViewProps) {
+  const trump = useContext(TrumpContext);
+  const trick = useContext(TrickContext);
+
   const numCards = player.hand.length;
   const centerIndex = (numCards - 1) / 2;
   const isMe = type === "bottom";
@@ -38,9 +47,21 @@ export function PlayerView({
     >
       {orderCards(player.hand).map((card, index) => {
         const cardRotation = (index - centerIndex) * rotationPerCard;
+        const isCardPlayable =
+          trump &&
+          trick &&
+          canPlayCard(
+            card,
+            player.hand,
+            type,
+            trick.board,
+            trick.askedType,
+            trump,
+          );
 
         return (
           <CardView
+            onTouchEnd={() => inTurn && isCardPlayable && onCardPlayed(card)}
             card={card}
             key={getId(card)}
             face={isMe ? "straight" : "verse"}
