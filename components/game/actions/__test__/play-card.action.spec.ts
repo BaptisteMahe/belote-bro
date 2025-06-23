@@ -1,10 +1,10 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { handlePlayCard, PlayCardAction } from "../play-card.action";
-import { GameState } from "@/components/game/game-state";
+import { GameState } from "@/components/game/game-state/game-state.model";
 import { Card } from "@/components/game/card/card";
 import * as actionsUtil from "@/components/game/actions/actions.util";
 import assert from "node:assert";
-import { BoardFullState } from "@/components/game/board/board";
+import { BoardFullState } from "@/components/game/board/board.model";
 
 describe("play-card.action", () => {
   describe("handlePlayCard", () => {
@@ -293,8 +293,9 @@ describe("play-card.action", () => {
       });
 
       const originalInitGameState =
-        require("@/components/game/game-state").initGameState;
-      require("@/components/game/game-state").initGameState = mockInitGameState;
+        require("@/components/game/game-state/game-state.util").initGameState;
+      require("@/components/game/game-state/game-state.util").initGameState =
+        mockInitGameState;
 
       // Mock getPlayerOrder to return a predictable order
       jest
@@ -313,7 +314,7 @@ describe("play-card.action", () => {
       expect(result.step.name).toBe("init");
 
       // Restore original function
-      require("@/components/game/game-state").initGameState =
+      require("@/components/game/game-state/game-state.util").initGameState =
         originalInitGameState;
     });
   });

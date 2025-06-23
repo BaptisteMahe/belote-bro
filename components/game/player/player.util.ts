@@ -1,13 +1,5 @@
-import { Card } from "@/components/game/card/card";
 import { uuid } from "expo-modules-core";
-
-export const PlayerTypes = ["bottom", "left", "top", "right"] as const;
-export type PlayerType = (typeof PlayerTypes)[number];
-
-export type Player = {
-  id: string;
-  hand: Card[];
-};
+import { Player, PlayerType } from "@/components/game/player/player.model";
 
 export function initPlayer(): Player {
   return {

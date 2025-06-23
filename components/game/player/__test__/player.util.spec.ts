@@ -1,5 +1,5 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { areOpponents, initPlayer, isUs } from "../player";
+import { areOpponents, initPlayer, isUs } from "../player.util";
 import { uuid } from "expo-modules-core";
 
 // Mock uuid.v4 to return a predictable value
@@ -9,7 +9,7 @@ jest.mock("expo-modules-core", () => ({
   },
 }));
 
-describe("player", () => {
+describe("player.util", () => {
   describe("initPlayer", () => {
     it("should return a player with the expected structure", () => {
       const player = initPlayer();

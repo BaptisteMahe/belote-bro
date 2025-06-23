@@ -1,8 +1,9 @@
 import { StyleSheet } from "react-native";
 import { ThemedView, ThemedViewProps } from "@/components/ThemedView";
-import { Player } from "@/components/game/player/player";
+import { Player } from "@/components/game/player/player.model";
 import { CardView } from "@/components/game/card/CardView";
-import { Card, getId } from "@/components/game/card/card";
+import { Card } from "@/components/game/card/card";
+import { getId } from "@/components/game/card/card.util";
 
 export type PayerViewProps = ThemedViewProps & {
   player: Player;

@@ -1,8 +1,4 @@
-import { Card, CardTypes, CardValues } from "@/components/game/card/card";
-
-export const Deck: Card[] = CardTypes.flatMap((type) =>
-  CardValues.map((value) => ({ type, value })),
-);
+import { Card } from "@/components/game/card/card";
 
 export function shuffle(deck: Card[]) {
   return [...deck].sort(() => Math.random() - 0.5);

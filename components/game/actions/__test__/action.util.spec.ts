@@ -1,9 +1,9 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { computeNewStarter, deal, getPlayerOrder } from "../actions.util";
-import { GameState } from "@/components/game/game-state";
-import { PlayerType, PlayerTypes } from "@/components/game/player/player";
+import { GameState } from "@/components/game/game-state/game-state.model";
+import { PlayerType, PlayerTypes } from "@/components/game/player/player.model";
 import { Card } from "@/components/game/card/card";
-import * as deckModule from "@/components/game/deck/deck";
+import * as deckModule from "@/components/game/deck/deck.util";
 
 describe("action.util", () => {
   describe("computeNewStarter", () => {

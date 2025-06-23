@@ -1,9 +1,10 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { handleTrumpDeny, TrumpDenyAction } from "../trump-deny.action";
-import * as gameStateModule from "@/components/game/game-state";
-import { GameState, initGameState } from "@/components/game/game-state";
+import * as gameStateModule from "@/components/game/game-state/game-state.util";
+import { initGameState } from "@/components/game/game-state/game-state.util";
 import { Card } from "@/components/game/card/card";
 import assert from "node:assert";
+import { GameState } from "@/components/game/game-state/game-state.model";
 
 describe("trump-deny.action", () => {
   const mockCard: Card = { type: "heart", value: "A" };

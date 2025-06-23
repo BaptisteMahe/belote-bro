@@ -1,16 +1,18 @@
-import { Card, getId } from "@/components/game/card/card";
+import { Card } from "@/components/game/card/card";
 import {
-  BoardFullState,
   GameState,
-  initGameState,
   RoundNum,
-} from "@/components/game/game-state";
+} from "@/components/game/game-state/game-state.model";
 import { getPlayerOrder } from "@/components/game/actions/actions.util";
-import { isUs, PlayerType, PlayerTypes } from "@/components/game/player/player";
+import { PlayerType, PlayerTypes } from "@/components/game/player/player.model";
 import {
   computeBoardScore,
   computeWinner,
-} from "@/components/game/board/board";
+} from "@/components/game/board/board.util";
+import { BoardFullState } from "@/components/game/board/board.model";
+import { isUs } from "@/components/game/player/player.util";
+import { initGameState } from "@/components/game/game-state/game-state.util";
+import { getId } from "@/components/game/card/card.util";
 
 export type PlayCardAction = {
   type: "playCard";

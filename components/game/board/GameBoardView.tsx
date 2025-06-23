@@ -1,9 +1,10 @@
 import { ThemedView, ThemedViewProps } from "@/components/ThemedView";
-import { GameStep } from "@/components/game/game-state";
+import { GameStep } from "@/components/game/game-state/game-state.model";
 import { CardView } from "@/components/game/card/CardView";
-import { Card, getId } from "../card/card";
+import { Card } from "../card/card";
 import { StyleSheet } from "react-native";
 import { useThemeColor } from "@/hooks/useThemeColor";
+import { getId } from "@/components/game/card/card.util";
 
 export type GameTableViewProps = ThemedViewProps & {
   gameStep: GameStep;

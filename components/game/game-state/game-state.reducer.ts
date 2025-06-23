@@ -1,4 +1,4 @@
-import { GameState } from "@/components/game/game-state";
+import { GameState } from "@/components/game/game-state/game-state.model";
 import { Reducer } from "react";
 import { GameAction } from "@/components/game/actions/game-actions";
 import { handleInitialised } from "@/components/game/actions/initialised.action";

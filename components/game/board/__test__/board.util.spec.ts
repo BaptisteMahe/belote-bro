@@ -1,5 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
-import { computeWinner } from "@/components/game/board/board";
+import { computeWinner } from "@/components/game/board/board.util";
 
 describe("computeWinner", () => {
   it("should throw an error when board is empty", () => {

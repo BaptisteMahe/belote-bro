@@ -1,6 +1,6 @@
 import { Card, CardType } from "@/components/game/card/card";
-import { PlayerType } from "@/components/game/player/player";
-import { GameState } from "@/components/game/game-state";
+import { PlayerType } from "@/components/game/player/player.model";
+import { GameState } from "@/components/game/game-state/game-state.model";
 import { deal } from "@/components/game/actions/actions.util";
 
 export type TrumpChooseAction = {

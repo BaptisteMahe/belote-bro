@@ -1,5 +1,5 @@
-import { GameState } from "@/components/game/game-state";
-import { getSingleCard } from "@/components/game/deck/deck";
+import { GameState } from "@/components/game/game-state/game-state.model";
+import { getSingleCard } from "@/components/game/deck/deck.util";
 import {
   computeNewStarter,
   deal,

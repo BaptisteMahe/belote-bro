@@ -1,6 +1,7 @@
-import { GameState, initGameState } from "@/components/game/game-state";
+import { GameState } from "@/components/game/game-state/game-state.model";
 import { getPlayerOrder } from "@/components/game/actions/actions.util";
-import { PlayerTypes } from "@/components/game/player/player";
+import { PlayerTypes } from "@/components/game/player/player.model";
+import { initGameState } from "@/components/game/game-state/game-state.util";
 
 export type TrumpDenyAction = {
   type: "trumpDeny";

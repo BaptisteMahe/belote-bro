@@ -2,9 +2,9 @@ import { StyleSheet } from "react-native";
 import { ThemedView } from "@/components/ThemedView";
 import { PlayerView } from "@/components/game/player/PlayerView";
 import { useEffect, useReducer } from "react";
-import { gameStateReducer } from "@/components/game/game-state.reducer";
+import { gameStateReducer } from "@/components/game/game-state/game-state.reducer";
 import { GameBoardView } from "@/components/game/board/GameBoardView";
-import { initGameState } from "@/components/game/game-state";
+import { initGameState } from "@/components/game/game-state/game-state.util";
 
 export default function GameScreen() {
   const [gameState, dispatch] = useReducer(gameStateReducer, initGameState());

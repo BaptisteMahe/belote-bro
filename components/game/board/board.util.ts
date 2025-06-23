@@ -1,20 +1,11 @@
+import { BoardState } from "@/components/game/board/board.model";
 import {
   Card,
   CardType,
   NonTrumpValues,
   TrumpValues,
 } from "@/components/game/card/card";
-import { PlayerType } from "@/components/game/player/player";
-import { NonNullableProps } from "@/utils/non-nullable-props";
-
-export type BoardState = {
-  bottom: Card | null;
-  top: Card | null;
-  left: Card | null;
-  right: Card | null;
-};
-
-export type BoardFullState = NonNullableProps<BoardState>;
+import { PlayerType } from "@/components/game/player/player.model";
 
 export function computeWinner(
   board: BoardState,
