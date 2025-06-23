@@ -7,3 +7,7 @@ export function getId(Card: Card): `${CardType}${CardValue}` {
 export function isTrump(card: Card, trump: CardType) {
   return card.type === trump;
 }
+
+export function isRed(card: Card) {
+  return ["heart", "diamond"].includes(card.type);
+}

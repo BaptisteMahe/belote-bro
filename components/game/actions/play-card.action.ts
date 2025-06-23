@@ -75,7 +75,7 @@ export function handlePlayCard(
             winners: gameScore.us > gameScore.them ? "us" : "them", // TODO: handle equality
           },
           deck: [],
-          players: removeCardFromPlayersHand(state.players, action),
+          players: removeCardFromPlayerHand(state.players, action),
           scores: {
             ...state.scores,
             ...gameScore,
@@ -90,7 +90,7 @@ export function handlePlayCard(
 
     return {
       ...state,
-      players: removeCardFromPlayersHand(state.players, action),
+      players: removeCardFromPlayerHand(state.players, action),
       step: {
         ...state.step,
         scores,
@@ -108,7 +108,7 @@ export function handlePlayCard(
 
   return {
     ...state,
-    players: removeCardFromPlayersHand(state.players, action),
+    players: removeCardFromPlayerHand(state.players, action),
     step: {
       ...state.step,
       trick: {
@@ -124,7 +124,7 @@ export function handlePlayCard(
   };
 }
 
-function removeCardFromPlayersHand(
+function removeCardFromPlayerHand(
   players: GameState["players"],
   action: PlayCardAction,
 ) {

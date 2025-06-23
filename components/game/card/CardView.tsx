@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { Card, TypeValueMap } from "@/components/game/card/card.model";
 import { useThemeColor } from "@/hooks/useThemeColor";
+import { isRed } from "@/components/game/card/card.util";
 
 export type CardViewProps = ThemedViewProps & {
   card: Card;
@@ -25,15 +26,34 @@ export function CardView({ card, face, style, ...rest }: CardViewProps) {
   return (
     <ThemedView style={[styles.container, { borderColor }, style]} {...rest}>
       <ThemedView style={styles.value}>
-        <ThemedText>{card.value}</ThemedText>
-        <ThemedText>{card.value}</ThemedText>
+        <ThemedText
+          {...(isRed(card) ? { lightColor: "red", darkColor: "red" } : {})}
+        >
+          {card.value}
+        </ThemedText>
+        <ThemedText
+          {...(isRed(card) ? { lightColor: "red", darkColor: "red" } : {})}
+        >
+          {card.value}
+        </ThemedText>
       </ThemedView>
-      <ThemedText style={[{ fontSize: 22 }]}>
+      <ThemedText
+        style={[{ fontSize: 22 }]}
+        {...(isRed(card) ? { lightColor: "red", darkColor: "red" } : {})}
+      >
         {TypeValueMap[card.type]}
       </ThemedText>
       <ThemedView style={styles.value}>
-        <ThemedText>{card.value}</ThemedText>
-        <ThemedText>{card.value}</ThemedText>
+        <ThemedText
+          {...(isRed(card) ? { lightColor: "red", darkColor: "red" } : {})}
+        >
+          {card.value}
+        </ThemedText>
+        <ThemedText
+          {...(isRed(card) ? { lightColor: "red", darkColor: "red" } : {})}
+        >
+          {card.value}
+        </ThemedText>
       </ThemedView>
     </ThemedView>
   );
