@@ -41,7 +41,6 @@ export function GameBoardView({
         <ThemedView style={[styles.row]}>
           {gameStep.trick.board.left && (
             <CardView
-              style={[styles.leftCard]}
               card={gameStep.trick.board.left}
               face="straight"
             ></CardView>
@@ -90,6 +89,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   row: {
+    width: "100%",
     flexDirection: "row",
   },
   topRow: {
@@ -100,10 +100,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  leftCard: {
-    alignSelf: "flex-start",
-  },
   rightCard: {
-    alignSelf: "flex-end",
+    marginLeft: "auto",
   },
 });
