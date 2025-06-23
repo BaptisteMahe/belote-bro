@@ -1,4 +1,4 @@
-import { Card } from "@/components/game/card/card";
+import { Card } from "@/components/game/card/card.model";
 import {
   GameState,
   RoundNum,

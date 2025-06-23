@@ -4,7 +4,7 @@ import {
   CardType,
   NonTrumpValues,
   TrumpValues,
-} from "@/components/game/card/card";
+} from "@/components/game/card/card.model";
 import { PlayerType } from "@/components/game/player/player.model";
 
 export function computeWinner(

@@ -1,7 +1,7 @@
 import { ThemedView, ThemedViewProps } from "@/components/ThemedView";
 import { StyleSheet } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
-import { Card, TypeValueMap } from "@/components/game/card/card";
+import { Card, TypeValueMap } from "@/components/game/card/card.model";
 import { useThemeColor } from "@/hooks/useThemeColor";
 
 export type CardViewProps = ThemedViewProps & {

@@ -1,4 +1,4 @@
-import { Card, CardType, CardValue } from "@/components/game/card/card";
+import { Card, CardType, CardValue } from "@/components/game/card/card.model";
 
 export function getId(Card: Card): `${CardType}${CardValue}` {
   return `${Card.type}${Card.value}`;

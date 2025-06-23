@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { handleTrumpChoose, TrumpChooseAction } from "../trump-choose.action";
 import { GameState } from "@/components/game/game-state/game-state.model";
-import { Card } from "@/components/game/card/card";
+import { Card } from "@/components/game/card/card.model";
 import * as actionsUtil from "@/components/game/actions/actions.util";
 import assert from "node:assert";
 

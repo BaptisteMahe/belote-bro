@@ -1,4 +1,4 @@
-import { Card, CardType, TrumpValues } from "@/components/game/card/card";
+import { Card, CardType, TrumpValues } from "@/components/game/card/card.model";
 import { areOpponents } from "../player/player.util";
 
 import { computeWinner } from "../board/board.util";

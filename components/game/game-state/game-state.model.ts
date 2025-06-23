@@ -1,4 +1,4 @@
-import { Card, CardType } from "@/components/game/card/card";
+import { Card, CardType } from "@/components/game/card/card.model";
 import {
   BoardFullState,
   BoardState,

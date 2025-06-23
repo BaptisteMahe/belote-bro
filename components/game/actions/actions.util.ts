@@ -1,6 +1,6 @@
 import { GameState } from "@/components/game/game-state/game-state.model";
 import { PlayerType, PlayerTypes } from "@/components/game/player/player.model";
-import { Card } from "@/components/game/card/card";
+import { Card } from "@/components/game/card/card.model";
 import { getMultipleCards } from "@/components/game/deck/deck.util";
 
 export function computeNewStarter(state: GameState) {

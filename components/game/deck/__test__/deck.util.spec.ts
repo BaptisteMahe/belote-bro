@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { getMultipleCards, getSingleCard, shuffle } from "../deck.util";
 import { Deck } from "../deck.model";
-import { Card, CardTypes, CardValues } from "@/components/game/card/card";
+import { Card, CardTypes, CardValues } from "@/components/game/card/card.model";
 
 describe("deck", () => {
   describe("Deck", () => {

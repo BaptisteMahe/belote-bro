@@ -3,7 +3,7 @@ import { initGameState } from "@/components/game/game-state/game-state.util";
 import { shuffle } from "@/components/game/deck/deck.util";
 import { initPlayer } from "@/components/game/player/player.util";
 import { Deck } from "@/components/game/deck/deck.model";
-import { Card } from "@/components/game/card/card";
+import { Card } from "@/components/game/card/card.model";
 
 // Mock dependencies
 jest.mock("@/components/game/deck/deck.util", () => ({

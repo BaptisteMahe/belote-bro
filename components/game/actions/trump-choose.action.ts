@@ -1,4 +1,4 @@
-import { Card, CardType } from "@/components/game/card/card";
+import { Card, CardType } from "@/components/game/card/card.model";
 import { PlayerType } from "@/components/game/player/player.model";
 import { GameState } from "@/components/game/game-state/game-state.model";
 import { deal } from "@/components/game/actions/actions.util";

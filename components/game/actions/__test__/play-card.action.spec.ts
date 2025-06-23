@@ -1,7 +1,7 @@
 import { describe, expect, it, jest } from "@jest/globals";
 import { handlePlayCard, PlayCardAction } from "../play-card.action";
 import { GameState } from "@/components/game/game-state/game-state.model";
-import { Card } from "@/components/game/card/card";
+import { Card } from "@/components/game/card/card.model";
 import * as actionsUtil from "@/components/game/actions/actions.util";
 import assert from "node:assert";
 import { BoardFullState } from "@/components/game/board/board.model";
@@ -17,20 +17,20 @@ describe("play-card.action", () => {
           bottom: { id: "bottom-id", hand: [] },
           left: { id: "left-id", hand: [] },
           top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [] },
+          right: { id: "right-id", hand: [] }
         },
-        scores: { us: 0, them: 0, target: 501 },
+        scores: { us: 0, them: 0, target: 501 }
       };
 
       const action: PlayCardAction = {
         type: "playCard",
         player: "bottom",
-        card: { type: "heart", value: "A" },
+        card: { type: "heart", value: "A" }
       };
 
       // Act & Assert
       expect(() => handlePlayCard(state, action)).toThrow(
-        "Action playCard impossible in this step init",
+        "Action playCard impossible in this step init"
       );
     });
 
@@ -51,26 +51,26 @@ describe("play-card.action", () => {
               bottom: null,
               top: null,
               left: null,
-              right: null,
+              right: null
             },
             askedType: null,
-            lastRound: null,
-          },
+            lastRound: null
+          }
         },
         deck: [],
         players: {
           bottom: { id: "bottom-id", hand: [mockCard] },
           left: { id: "left-id", hand: [] },
           top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [] },
+          right: { id: "right-id", hand: [] }
         },
-        scores: { us: 0, them: 0, target: 501 },
+        scores: { us: 0, them: 0, target: 501 }
       };
 
       const action: PlayCardAction = {
         type: "playCard",
         player: "bottom",
-        card: mockCard,
+        card: mockCard
       };
 
       // Mock getPlayerOrder to return a predictable order
@@ -96,7 +96,7 @@ describe("play-card.action", () => {
         bottom: { type: "heart", value: "A" },
         left: { type: "heart", value: "K" },
         top: { type: "heart", value: "Q" },
-        right: { type: "heart", value: "J" },
+        right: { type: "heart", value: "J" }
       };
 
       const state: GameState = {
@@ -113,26 +113,26 @@ describe("play-card.action", () => {
               bottom: mockCards.bottom,
               left: mockCards.left,
               top: mockCards.top,
-              right: null,
+              right: null
             },
             askedType: "heart",
-            lastRound: null,
-          },
+            lastRound: null
+          }
         },
         deck: [],
         players: {
           bottom: { id: "bottom-id", hand: [] },
           left: { id: "left-id", hand: [] },
           top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [mockCards.right] },
+          right: { id: "right-id", hand: [mockCards.right] }
         },
-        scores: { us: 0, them: 0, target: 501 },
+        scores: { us: 0, them: 0, target: 501 }
       };
 
       const action: PlayCardAction = {
         type: "playCard",
         player: "right",
-        card: mockCards.right,
+        card: mockCards.right
       };
 
       // Mock getPlayerOrder to return a predictable order
@@ -152,7 +152,7 @@ describe("play-card.action", () => {
         bottom: null,
         left: null,
         top: null,
-        right: null,
+        right: null
       });
       expect(result.step.round.askedType).toBeNull();
       expect(result.step.round.lastRound).toEqual({
@@ -160,13 +160,13 @@ describe("play-card.action", () => {
           bottom: mockCards.bottom,
           left: mockCards.left,
           top: mockCards.top,
-          right: mockCards.right,
+          right: mockCards.right
         },
-        winner: "right",
+        winner: "right"
       });
       expect(result.step.scores).toEqual({
         us: 0,
-        them: 38, // Actual scores from the implementation
+        them: 38 // Actual scores from the implementation
       });
     });
 
@@ -176,7 +176,7 @@ describe("play-card.action", () => {
         bottom: { type: "heart", value: "A" },
         left: { type: "heart", value: "K" },
         top: { type: "heart", value: "Q" },
-        right: { type: "heart", value: "J" },
+        right: { type: "heart", value: "J" }
       };
 
       const state: GameState = {
@@ -193,26 +193,26 @@ describe("play-card.action", () => {
               bottom: mockCards.bottom,
               left: mockCards.left,
               top: mockCards.top,
-              right: null,
+              right: null
             },
             askedType: "heart",
-            lastRound: null,
-          },
+            lastRound: null
+          }
         },
         deck: [],
         players: {
           bottom: { id: "bottom-id", hand: [] },
           left: { id: "left-id", hand: [] },
           top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [mockCards.right] },
+          right: { id: "right-id", hand: [mockCards.right] }
         },
-        scores: { us: 450, them: 400, target: 501 },
+        scores: { us: 450, them: 400, target: 501 }
       };
 
       const action: PlayCardAction = {
         type: "playCard",
         player: "right",
-        card: mockCards.right,
+        card: mockCards.right
       };
 
       // Mock getPlayerOrder to return a predictable order
@@ -230,7 +230,7 @@ describe("play-card.action", () => {
       expect(result.scores).toEqual({
         us: 530, // Actual score from the implementation
         them: 438,
-        target: 501,
+        target: 501
       });
     });
 
@@ -240,7 +240,7 @@ describe("play-card.action", () => {
         bottom: { type: "heart", value: "A" },
         left: { type: "heart", value: "K" },
         top: { type: "heart", value: "Q" },
-        right: { type: "heart", value: "J" },
+        right: { type: "heart", value: "J" }
       };
 
       const state: GameState = {
@@ -257,26 +257,26 @@ describe("play-card.action", () => {
               bottom: mockCards.bottom,
               left: mockCards.left,
               top: mockCards.top,
-              right: null,
+              right: null
             },
             askedType: "heart",
-            lastRound: null,
-          },
+            lastRound: null
+          }
         },
         deck: [],
         players: {
           bottom: { id: "bottom-id", hand: [] },
           left: { id: "left-id", hand: [] },
           top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [mockCards.right] },
+          right: { id: "right-id", hand: [mockCards.right] }
         },
-        scores: { us: 300, them: 300, target: 501 },
+        scores: { us: 300, them: 300, target: 501 }
       };
 
       const action: PlayCardAction = {
         type: "playCard",
         player: "right",
-        card: mockCards.right,
+        card: mockCards.right
       };
 
       // Mock initGameState to verify it's called with the correct scores
@@ -287,9 +287,9 @@ describe("play-card.action", () => {
           bottom: { id: "bottom-id", hand: [] },
           left: { id: "left-id", hand: [] },
           top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [] },
+          right: { id: "right-id", hand: [] }
         },
-        scores: { us: 300 + 162, them: 300, target: 501 },
+        scores: { us: 300 + 162, them: 300, target: 501 }
       });
 
       const originalInitGameState =
@@ -309,7 +309,7 @@ describe("play-card.action", () => {
       expect(mockInitGameState).toHaveBeenCalledWith({
         us: 380, // Actual score from the implementation
         them: 338,
-        target: 501,
+        target: 501
       });
       expect(result.step.name).toBe("init");
 
@@ -327,7 +327,7 @@ describe("play-card.action", () => {
         bottom: { type: "heart", value: "9" },
         left: { type: "heart", value: "J" },
         top: { type: "heart", value: "A" },
-        right: { type: "heart", value: "K" },
+        right: { type: "heart", value: "K" }
       };
 
       const state: GameState = {
@@ -344,26 +344,26 @@ describe("play-card.action", () => {
               bottom: mockCards.bottom,
               left: mockCards.left,
               top: mockCards.top,
-              right: null,
+              right: null
             },
             askedType: "heart",
-            lastRound: null,
-          },
+            lastRound: null
+          }
         },
         deck: [],
         players: {
           bottom: { id: "bottom-id", hand: [] },
           left: { id: "left-id", hand: [] },
           top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [mockCards.right] },
+          right: { id: "right-id", hand: [mockCards.right] }
         },
-        scores: { us: 0, them: 0, target: 501 },
+        scores: { us: 0, them: 0, target: 501 }
       };
 
       const action: PlayCardAction = {
         type: "playCard",
         player: "right",
-        card: mockCards.right,
+        card: mockCards.right
       };
 
       // Mock getPlayerOrder to return a predictable order
@@ -386,7 +386,7 @@ describe("play-card.action", () => {
         bottom: { type: "heart", value: "A" },
         left: { type: "heart", value: "K" },
         top: { type: "heart", value: "Q" },
-        right: { type: "heart", value: "J" },
+        right: { type: "heart", value: "J" }
       };
 
       const state: GameState = {
@@ -403,26 +403,26 @@ describe("play-card.action", () => {
               bottom: mockCards.bottom,
               left: mockCards.left,
               top: mockCards.top,
-              right: null,
+              right: null
             },
             askedType: "heart",
-            lastRound: null,
-          },
+            lastRound: null
+          }
         },
         deck: [],
         players: {
           bottom: { id: "bottom-id", hand: [] },
           left: { id: "left-id", hand: [] },
           top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [mockCards.right] },
+          right: { id: "right-id", hand: [mockCards.right] }
         },
-        scores: { us: 0, them: 0, target: 501 },
+        scores: { us: 0, them: 0, target: 501 }
       };
 
       const action: PlayCardAction = {
         type: "playCard",
         player: "right",
-        card: mockCards.right,
+        card: mockCards.right
       };
 
       // Mock getPlayerOrder to return a predictable order
@@ -445,7 +445,7 @@ describe("play-card.action", () => {
         bottom: { type: "heart", value: "A" },
         left: { type: "spade", value: "7" }, // Trump
         top: { type: "heart", value: "K" },
-        right: { type: "spade", value: "J" }, // Trump
+        right: { type: "spade", value: "J" } // Trump
       };
 
       const state: GameState = {
@@ -462,26 +462,26 @@ describe("play-card.action", () => {
               bottom: mockCards.bottom,
               left: mockCards.left,
               top: mockCards.top,
-              right: null,
+              right: null
             },
             askedType: "heart",
-            lastRound: null,
-          },
+            lastRound: null
+          }
         },
         deck: [],
         players: {
           bottom: { id: "bottom-id", hand: [] },
           left: { id: "left-id", hand: [] },
           top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [mockCards.right] },
+          right: { id: "right-id", hand: [mockCards.right] }
         },
-        scores: { us: 0, them: 0, target: 501 },
+        scores: { us: 0, them: 0, target: 501 }
       };
 
       const action: PlayCardAction = {
         type: "playCard",
         player: "right",
-        card: mockCards.right,
+        card: mockCards.right
       };
 
       // Mock getPlayerOrder to return a predictable order
@@ -505,7 +505,7 @@ describe("play-card.action", () => {
         bottom: { type: "heart", value: "J" },
         left: { type: "heart", value: "9" },
         top: { type: "heart", value: "A" },
-        right: { type: "heart", value: "K" },
+        right: { type: "heart", value: "K" }
       };
 
       const state: GameState = {
@@ -522,26 +522,26 @@ describe("play-card.action", () => {
               bottom: mockCards.bottom,
               left: mockCards.left,
               top: mockCards.top,
-              right: null,
+              right: null
             },
             askedType: "heart",
-            lastRound: null,
-          },
+            lastRound: null
+          }
         },
         deck: [],
         players: {
           bottom: { id: "bottom-id", hand: [] },
           left: { id: "left-id", hand: [] },
           top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [mockCards.right] },
+          right: { id: "right-id", hand: [mockCards.right] }
         },
-        scores: { us: 0, them: 0, target: 501 },
+        scores: { us: 0, them: 0, target: 501 }
       };
 
       const action: PlayCardAction = {
         type: "playCard",
         player: "right",
-        card: mockCards.right,
+        card: mockCards.right
       };
 
       // Mock getPlayerOrder to return a predictable order
@@ -566,7 +566,7 @@ describe("play-card.action", () => {
         bottom: { type: "heart", value: "A" },
         left: { type: "heart", value: "K" },
         top: { type: "heart", value: "Q" },
-        right: { type: "heart", value: "J" },
+        right: { type: "heart", value: "J" }
       };
 
       const state: GameState = {
@@ -583,26 +583,26 @@ describe("play-card.action", () => {
               bottom: mockCards.bottom,
               left: mockCards.left,
               top: mockCards.top,
-              right: null,
+              right: null
             },
             askedType: "heart",
-            lastRound: null,
-          },
+            lastRound: null
+          }
         },
         deck: [],
         players: {
           bottom: { id: "bottom-id", hand: [] },
           left: { id: "left-id", hand: [] },
           top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [mockCards.right] },
+          right: { id: "right-id", hand: [mockCards.right] }
         },
-        scores: { us: 0, them: 0, target: 501 },
+        scores: { us: 0, them: 0, target: 501 }
       };
 
       const action: PlayCardAction = {
         type: "playCard",
         player: "right",
-        card: mockCards.right,
+        card: mockCards.right
       };
 
       // Mock getPlayerOrder to return a predictable order
@@ -636,11 +636,11 @@ describe("play-card.action", () => {
               bottom: null,
               top: null,
               left: null,
-              right: null,
+              right: null
             },
             askedType: null,
-            lastRound: null,
-          },
+            lastRound: null
+          }
         },
         deck: [],
         players: {
@@ -649,20 +649,20 @@ describe("play-card.action", () => {
             hand: [
               mockCard,
               { type: "heart", value: "K" },
-              { type: "spade", value: "Q" },
-            ],
+              { type: "spade", value: "Q" }
+            ]
           },
           left: { id: "left-id", hand: [] },
           top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [] },
+          right: { id: "right-id", hand: [] }
         },
-        scores: { us: 0, them: 0, target: 501 },
+        scores: { us: 0, them: 0, target: 501 }
       };
 
       const action: PlayCardAction = {
         type: "playCard",
         player: "bottom",
-        card: mockCard,
+        card: mockCard
       };
 
       // Mock getPlayerOrder to return a predictable order
@@ -676,7 +676,7 @@ describe("play-card.action", () => {
       // Assert
       expect(result.players.bottom.hand).toEqual([
         { type: "heart", value: "K" },
-        { type: "spade", value: "Q" },
+        { type: "spade", value: "Q" }
       ]);
       expect(result.players.bottom.hand).not.toContainEqual(mockCard);
     });
