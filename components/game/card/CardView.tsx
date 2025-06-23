@@ -29,12 +29,12 @@ export function CardView({ card, face, style, ...rest }: CardViewProps) {
         <ThemedText
           {...(isRed(card) ? { lightColor: "red", darkColor: "red" } : {})}
         >
-          {card.value}
+          {`${card.value}${TypeValueMap[card.type]}`}
         </ThemedText>
         <ThemedText
           {...(isRed(card) ? { lightColor: "red", darkColor: "red" } : {})}
         >
-          {card.value}
+          {`${card.value}${TypeValueMap[card.type]}`}
         </ThemedText>
       </ThemedView>
       <ThemedText
@@ -47,12 +47,12 @@ export function CardView({ card, face, style, ...rest }: CardViewProps) {
         <ThemedText
           {...(isRed(card) ? { lightColor: "red", darkColor: "red" } : {})}
         >
-          {card.value}
+          {`${card.value}${TypeValueMap[card.type]}`}
         </ThemedText>
         <ThemedText
           {...(isRed(card) ? { lightColor: "red", darkColor: "red" } : {})}
         >
-          {card.value}
+          {`${card.value}${TypeValueMap[card.type]}`}
         </ThemedText>
       </ThemedView>
     </ThemedView>

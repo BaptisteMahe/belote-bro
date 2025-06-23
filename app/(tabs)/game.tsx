@@ -11,6 +11,7 @@ import { ChooseTrumpModal } from "@/components/game/choose-trump/ChooseTrumpModa
 import { isInTurn } from "@/components/game/player/player.util";
 import { TrumpContext } from "@/components/game/card/trump.context";
 import { TrickContext } from "@/components/game/board/trick.context";
+import { autoPlay } from "@/components/game/auto-play/auto-play";
 
 export default function GameScreen() {
   const [gameState, dispatch] = useReducer(gameStateReducer, initGameState());
@@ -18,6 +19,10 @@ export default function GameScreen() {
   useEffect(() => {
     if (gameState.step.name === "init") dispatch({ type: "initialised" });
   }, [gameState.step.name]);
+
+  useEffect(() => {
+    autoPlay(gameState, dispatch);
+  }, [gameState]);
 
   return (
     <TrickContext

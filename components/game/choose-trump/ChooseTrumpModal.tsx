@@ -1,4 +1,4 @@
-import { Button, Modal, StyleSheet } from "react-native";
+import { Button, Modal, StyleSheet, View } from "react-native";
 import { ThemedView, ThemedViewProps } from "@/components/ThemedView";
 import {
   ChooseTrumpGameStep,
@@ -34,27 +34,28 @@ export function ChooseTrumpModal({
         gameState.step.turn === "bottom"
       }
       onRequestClose={onDeny}
-      style={[style]}
     >
-      <ThemedView style={[style, styles.container]} {...rest}>
-        {gameState.step.name === "chooseTrump" &&
-          gameState.step.round === 0 && (
-            <ModalContentFirstRound
-              gameStep={gameState.step}
-              onChoose={onChoose}
-              onDeny={onDeny}
-            ></ModalContentFirstRound>
-          )}
+      <View style={[style, styles.modal]}>
+        <ThemedView style={[style, styles.container]} {...rest}>
+          {gameState.step.name === "chooseTrump" &&
+            gameState.step.round === 0 && (
+              <ModalContentFirstRound
+                gameStep={gameState.step}
+                onChoose={onChoose}
+                onDeny={onDeny}
+              ></ModalContentFirstRound>
+            )}
 
-        {gameState.step.name === "chooseTrump" &&
-          gameState.step.round === 1 && (
-            <ModalContentSecondRound
-              gameStep={gameState.step}
-              onChoose={onChoose}
-              onDeny={onDeny}
-            ></ModalContentSecondRound>
-          )}
-      </ThemedView>
+          {gameState.step.name === "chooseTrump" &&
+            gameState.step.round === 1 && (
+              <ModalContentSecondRound
+                gameStep={gameState.step}
+                onChoose={onChoose}
+                onDeny={onDeny}
+              ></ModalContentSecondRound>
+            )}
+        </ThemedView>
+      </View>
     </Modal>
   );
 }
@@ -109,6 +110,13 @@ function ModalContentSecondRound({
 }
 
 const styles = StyleSheet.create({
+  modal: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   container: {
     display: "flex",
     flexDirection: "row",
