@@ -41,7 +41,7 @@ export function handleTrumpChoose(
         us: 0,
         them: 0,
       },
-      round: {
+      trick: {
         num: 0,
         turn: state.step.starter,
         board: {
@@ -51,7 +51,7 @@ export function handleTrumpChoose(
           right: null,
         },
         askedType: null,
-        lastRound: null,
+        previousTrick: null,
       },
     },
   };

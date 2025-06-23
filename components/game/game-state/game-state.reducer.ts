@@ -1,6 +1,6 @@
 import { GameState } from "@/components/game/game-state/game-state.model";
 import { Reducer } from "react";
-import { GameAction } from "@/components/game/actions/game-actions";
+import { GameAction } from "@/components/game/actions/game-actions.model";
 import { handleInitialised } from "@/components/game/actions/initialised.action";
 import { handleTrumpChoose } from "@/components/game/actions/trump-choose.action";
 import { handleTrumpDeny } from "@/components/game/actions/trump-deny.action";

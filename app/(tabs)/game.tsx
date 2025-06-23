@@ -5,6 +5,8 @@ import { useEffect, useReducer } from "react";
 import { gameStateReducer } from "@/components/game/game-state/game-state.reducer";
 import { GameBoardView } from "@/components/game/board/GameBoardView";
 import { initGameState } from "@/components/game/game-state/game-state.util";
+import { ScoreBoardView } from "@/components/game/score/ScoreBoardView";
+import { PreviousTrickView } from "@/components/game/previous-trick/PreviousTrickView";
 
 export default function GameScreen() {
   const [gameState, dispatch] = useReducer(gameStateReducer, initGameState());
@@ -16,7 +18,20 @@ export default function GameScreen() {
   return (
     <ThemedView style={styles.container}>
       <ThemedView style={styles.topRow}>
+        <PreviousTrickView
+          previousTrick={
+            gameState.step.name === "play"
+              ? gameState.step.trick.previousTrick
+              : null
+          }
+        ></PreviousTrickView>
         <PlayerView player={gameState.players.top} type="top"></PlayerView>
+        <ScoreBoardView
+          gameScores={gameState.scores}
+          roundScores={
+            "scores" in gameState.step ? gameState.step.scores : null
+          }
+        ></ScoreBoardView>
       </ThemedView>
       <ThemedView style={styles.middleRow}>
         <PlayerView player={gameState.players.left} type="left"></PlayerView>
@@ -55,7 +70,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "25%",
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
   },
   middleRow: {

@@ -1,7 +1,7 @@
 import { ThemedView, ThemedViewProps } from "@/components/ThemedView";
 import { GameStep } from "@/components/game/game-state/game-state.model";
 import { CardView } from "@/components/game/card/CardView";
-import { Card } from "../card/card";
+import { Card } from "../card/card.model";
 import { StyleSheet } from "react-native";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { getId } from "@/components/game/card/card.util";
@@ -33,7 +33,7 @@ export function GameBoardView({
   if (gameStep.name === "play") {
     return (
       <ThemedView style={[styles.container, { borderColor }, style]} {...rest}>
-        {Object.values(gameStep.round.board)
+        {Object.values(gameStep.trick.board)
           .filter((card) => !!card)
           .map((card) => (
             <CardView key={getId(card)} card={card} face="straight"></CardView>

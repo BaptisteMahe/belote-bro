@@ -114,16 +114,16 @@ describe("trump-choose.action", () => {
       expect(result.step.starter).toBe(state.step.starter);
       expect(result.step.leader).toBe(action.player);
       expect(result.step.scores).toEqual({ us: 0, them: 0 });
-      expect(result.step.round.num).toBe(0);
-      expect(result.step.round.turn).toBe(state.step.starter);
-      expect(result.step.round.board).toEqual({
+      expect(result.step.trick.num).toBe(0);
+      expect(result.step.trick.turn).toBe(state.step.starter);
+      expect(result.step.trick.board).toEqual({
         bottom: null,
         top: null,
         left: null,
         right: null,
       });
-      expect(result.step.round.askedType).toBeNull();
-      expect(result.step.round.lastRound).toBeNull();
+      expect(result.step.trick.askedType).toBeNull();
+      expect(result.step.trick.previousTrick).toBeNull();
     });
 
     it("should deal the correct number of cards to each player", () => {

@@ -1,7 +1,7 @@
 import { Card } from "@/components/game/card/card.model";
 import {
   GameState,
-  RoundNum,
+  TrickNum,
 } from "@/components/game/game-state/game-state.model";
 import { getPlayerOrder } from "@/components/game/actions/actions.util";
 import { PlayerType, PlayerTypes } from "@/components/game/player/player.model";
@@ -30,17 +30,17 @@ export function handlePlayCard(
     );
 
   const order = getPlayerOrder(state.step.starter);
-  const turnIndex = order.indexOf(state.step.round.turn);
+  const turnIndex = order.indexOf(state.step.trick.turn);
 
   if (turnIndex === 3) {
     const board = {
-      ...state.step.round.board,
+      ...state.step.trick.board,
       [action.player]: action.card,
     } as BoardFullState;
 
     const winner = computeWinner(
       board,
-      state.step.round.askedType!,
+      state.step.trick.askedType!,
       state.step.trump,
     );
 
@@ -51,7 +51,7 @@ export function handlePlayCard(
       them: state.step.scores.them + (!isUs(winner) ? boardScore : 0),
     };
 
-    if (state.step.round.num === 7) {
+    if (state.step.trick.num === 7) {
       const roundResultScore = computeRoundResultScore(
         scores,
         state.step.leader,
@@ -91,9 +91,9 @@ export function handlePlayCard(
       step: {
         ...state.step,
         scores,
-        round: {
-          ...state.step.round,
-          num: (state.step.round.num + 1) as RoundNum,
+        trick: {
+          ...state.step.trick,
+          num: (state.step.trick.num + 1) as TrickNum,
           turn: winner,
           board: {
             bottom: null,
@@ -102,7 +102,7 @@ export function handlePlayCard(
             right: null,
           },
           askedType: null,
-          lastRound: { board, winner },
+          previousTrick: { board, winner },
         },
       },
     };
@@ -113,14 +113,14 @@ export function handlePlayCard(
     players: removeCardFromPlayersHand(state.players, action),
     step: {
       ...state.step,
-      round: {
-        ...state.step.round,
+      trick: {
+        ...state.step.trick,
         board: {
-          ...state.step.round.board,
+          ...state.step.trick.board,
           [action.player]: action.card,
         },
         turn: order[(turnIndex + 1) % PlayerTypes.length],
-        askedType: state.step.round.askedType ?? action.card.type,
+        askedType: state.step.trick.askedType ?? action.card.type,
       },
     },
   };
