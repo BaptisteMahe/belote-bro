@@ -40,6 +40,7 @@ export type PlayGameStep = {
   starter: PlayerType;
   leader: PlayerType;
   scores: Scores;
+  hasBeloteAndRe: PlayerType | null;
   trick: {
     num: TrickNum;
     turn: PlayerType;

@@ -64,6 +64,7 @@ export function handlePlayCard(
       const roundResultScore = computeRoundResultScore(
         scores,
         state.step.leader,
+        state.step.hasBeloteAndRe,
       );
 
       const gameScore = {
@@ -149,30 +150,49 @@ function removeCardFromPlayerHand(
 function computeRoundResultScore(
   roundScore: { us: number; them: number },
   leader: PlayerType,
+  hasBeloteAndRe: PlayerType | null,
 ) {
+  const addedScoreForBeloteAndRe = hasBeloteAndRe
+    ? {
+        us: isUs(hasBeloteAndRe) ? 20 : 0,
+        them: !isUs(hasBeloteAndRe) ? 20 : 0,
+      }
+    : { us: 0, them: 0 };
+
   // Capot
   if (roundScore.us === 0)
     return {
-      us: 0,
-      them: 252,
+      us: addedScoreForBeloteAndRe.us,
+      them: 252 + addedScoreForBeloteAndRe.them,
     };
   if (roundScore.them === 0)
     return {
-      us: 252,
-      them: 0,
+      us: 252 + addedScoreForBeloteAndRe.us,
+      them: addedScoreForBeloteAndRe.them,
     };
 
   // Failed contract
-  if (isUs(leader) && roundScore.us <= roundScore.them)
+  if (
+    isUs(leader) &&
+    roundScore.us + addedScoreForBeloteAndRe.us <=
+      roundScore.them + addedScoreForBeloteAndRe.them
+  )
     return {
-      us: 0,
-      them: 162,
+      us: addedScoreForBeloteAndRe.us,
+      them: 162 + addedScoreForBeloteAndRe.them,
     };
-  if (!isUs(leader) && roundScore.them <= roundScore.us)
+  if (
+    !isUs(leader) &&
+    roundScore.them + addedScoreForBeloteAndRe.them <=
+      roundScore.us + addedScoreForBeloteAndRe.us
+  )
     return {
-      us: 162,
-      them: 0,
+      us: 162 + addedScoreForBeloteAndRe.us,
+      them: addedScoreForBeloteAndRe.them,
     };
 
-  return roundScore;
+  return {
+    us: roundScore.us + addedScoreForBeloteAndRe.us,
+    them: roundScore.them + addedScoreForBeloteAndRe.them,
+  };
 }

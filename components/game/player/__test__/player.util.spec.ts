@@ -1,5 +1,5 @@
 import { describe, expect, it, jest } from "@jest/globals";
-import { areOpponents, initPlayer, isUs } from "../player.util";
+import { areOpponents, hasBeloteAndRe, initPlayer, isUs } from "../player.util";
 import { uuid } from "expo-modules-core";
 
 // Mock uuid.v4 to return a predictable value
@@ -62,6 +62,42 @@ describe("player.util", () => {
 
     it("should return false for allies", () => {
       expect(areOpponents("left", "right")).toBe(false);
+    });
+  });
+
+  describe("hasBeloteAndRe", () => {
+    it("should return true if the player has belote and re", () => {
+      expect(
+        hasBeloteAndRe(
+          {
+            id: "mock-uuid",
+            hand: [
+              { value: "K", type: "heart" },
+              { value: "Q", type: "heart" },
+              { value: "A", type: "heart" },
+              { value: "J", type: "diamond" },
+            ],
+          },
+          "heart",
+        ),
+      ).toBe(true);
+    });
+
+    it("should return false if the player doen't have belote and re", () => {
+      expect(
+        hasBeloteAndRe(
+          {
+            id: "mock-uuid",
+            hand: [
+              { value: "K", type: "heart" },
+              { value: "Q", type: "heart" },
+              { value: "A", type: "heart" },
+              { value: "J", type: "diamond" },
+            ],
+          },
+          "diamond",
+        ),
+      ).toBe(false);
     });
   });
 });

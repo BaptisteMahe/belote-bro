@@ -1,8 +1,9 @@
 import { Card, CardType } from "@/components/game/card/card.model";
-import { PlayerType } from "@/components/game/player/player.model";
+import { Player, PlayerType } from "@/components/game/player/player.model";
 import { GameState } from "@/components/game/game-state/game-state.model";
 import { deal } from "@/components/game/actions/actions.util";
 import { EmptyBoard } from "@/components/game/board/board.model";
+import { hasBeloteAndRe } from "@/components/game/player/player.util";
 
 export type TrumpChooseAction = {
   type: "trumpChoose";
@@ -29,6 +30,10 @@ export function handleTrumpChoose(
 
   players[action.player].hand.push(action.card);
 
+  const playerWithBeloteAndRe = (
+    Object.entries(players) as [PlayerType, Player][]
+  ).find(([_, player]) => hasBeloteAndRe(player, action.trump));
+
   return {
     ...state,
     players,
@@ -38,6 +43,7 @@ export function handleTrumpChoose(
       trump: action.trump,
       starter: state.step.starter,
       leader: action.player,
+      hasBeloteAndRe: playerWithBeloteAndRe ? playerWithBeloteAndRe[0] : null,
       scores: {
         us: 0,
         them: 0,

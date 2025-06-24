@@ -1,6 +1,7 @@
 import { uuid } from "expo-modules-core";
 import { Player, PlayerType } from "@/components/game/player/player.model";
 import { GameState } from "@/components/game/game-state/game-state.model";
+import { CardType } from "@/components/game/card/card.model";
 
 export function initPlayer(): Player {
   return {
@@ -25,5 +26,12 @@ export function isInTurn(
     (gameState.step.name === "chooseTrump" &&
       gameState.step.turn === playerType) ||
     (gameState.step.name === "play" && gameState.step.trick.turn === playerType)
+  );
+}
+
+export function hasBeloteAndRe(player: Player, trump: CardType) {
+  return !!(
+    player.hand.find((card) => card.type === trump && card.value === "K") &&
+    player.hand.find((card) => card.type === trump && card.value === "Q")
   );
 }

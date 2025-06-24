@@ -44,6 +44,7 @@ describe("play-card.action", () => {
           starter: "bottom",
           leader: "bottom",
           scores: { us: 0, them: 0 },
+          hasBeloteAndRe: null,
           trick: {
             num: 0,
             turn: "bottom",
@@ -106,6 +107,7 @@ describe("play-card.action", () => {
           starter: "bottom",
           leader: "bottom",
           scores: { us: 0, them: 0 },
+          hasBeloteAndRe: null,
           trick: {
             num: 0,
             turn: "right",
@@ -186,6 +188,7 @@ describe("play-card.action", () => {
           starter: "bottom",
           leader: "bottom",
           scores: { us: 80, them: 0 },
+          hasBeloteAndRe: null,
           trick: {
             num: 7, // Last round
             turn: "right",
@@ -250,6 +253,7 @@ describe("play-card.action", () => {
           starter: "bottom",
           leader: "bottom",
           scores: { us: 80, them: 0 },
+          hasBeloteAndRe: null,
           trick: {
             num: 7, // Last round
             turn: "right",
@@ -337,6 +341,7 @@ describe("play-card.action", () => {
           starter: "bottom",
           leader: "bottom",
           scores: { us: 0, them: 0 },
+          hasBeloteAndRe: null,
           trick: {
             num: 0,
             turn: "right",
@@ -396,6 +401,7 @@ describe("play-card.action", () => {
           starter: "bottom",
           leader: "bottom",
           scores: { us: 0, them: 0 },
+          hasBeloteAndRe: null,
           trick: {
             num: 0,
             turn: "right",
@@ -455,6 +461,7 @@ describe("play-card.action", () => {
           starter: "bottom",
           leader: "bottom",
           scores: { us: 0, them: 0 },
+          hasBeloteAndRe: null,
           trick: {
             num: 0,
             turn: "right",
@@ -515,6 +522,7 @@ describe("play-card.action", () => {
           starter: "bottom",
           leader: "bottom",
           scores: { us: 0, them: 0 },
+          hasBeloteAndRe: null,
           trick: {
             num: 0,
             turn: "right",
@@ -576,6 +584,7 @@ describe("play-card.action", () => {
           starter: "bottom",
           leader: "bottom",
           scores: { us: 162, them: 0 }, // "us" has all points
+          hasBeloteAndRe: null,
           trick: {
             num: 7, // Last trick
             turn: "right",
@@ -629,6 +638,7 @@ describe("play-card.action", () => {
           starter: "bottom",
           leader: "bottom",
           scores: { us: 0, them: 0 },
+          hasBeloteAndRe: null,
           trick: {
             num: 0,
             turn: "bottom",
