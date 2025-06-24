@@ -21,6 +21,7 @@ export default function GameScreen() {
   }, [gameState.step.name]);
 
   useEffect(() => {
+    console.log("GameState", gameState);
     autoPlay(gameState, dispatch);
   }, [gameState]);
 
@@ -97,6 +98,12 @@ export default function GameScreen() {
             ></PlayerView>
             <Button
               title="Reset"
+              disabled={
+                (gameState.step.name === "chooseTrump" &&
+                  gameState.step.turn !== "bottom") ||
+                (gameState.step.name === "play" &&
+                  gameState.step.trick.turn !== "bottom")
+              }
               onPress={() => dispatch({ type: "reset" })}
             ></Button>
           </ThemedView>

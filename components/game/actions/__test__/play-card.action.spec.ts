@@ -229,7 +229,7 @@ describe("play-card.action", () => {
       expect(result.step.winners).toBe("us");
       expect(result.scores).toEqual({
         us: 530, // Actual score from the implementation
-        them: 438,
+        them: 448,
         target: 501,
       });
     });
@@ -308,7 +308,7 @@ describe("play-card.action", () => {
       // Assert
       expect(mockInitGameState).toHaveBeenCalledWith({
         us: 380, // Actual score from the implementation
-        them: 338,
+        them: 348,
         target: 501,
       });
       expect(result.step.name).toBe("init");
@@ -615,7 +615,7 @@ describe("play-card.action", () => {
 
       // Assert - actual scores from the implementation
       expect(result.scores.us).toBe(162);
-      expect(result.scores.them).toBe(38);
+      expect(result.scores.them).toBe(48);
     });
 
     // Test removing card from player's hand

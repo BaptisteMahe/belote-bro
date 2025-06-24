@@ -43,16 +43,22 @@ export function computeWinner(
   )![0];
 }
 
-export function computeBoardScore(board: BoardState, trump: CardType) {
+export function computeBoardScore(
+  board: BoardState,
+  trump: CardType,
+  isLastTrick: boolean,
+) {
   const cards = [board.bottom, board.top, board.left, board.right];
-  return cards
-    .filter((card) => !!card)
-    .reduce(
-      (score, card) =>
-        score +
-        (card.type === trump
-          ? TrumpValues[card.value]
-          : NonTrumpValues[card.value]),
-      0,
-    );
+  return (
+    cards
+      .filter((card) => !!card)
+      .reduce(
+        (score, card) =>
+          score +
+          (card.type === trump
+            ? TrumpValues[card.value]
+            : NonTrumpValues[card.value]),
+        0,
+      ) + (isLastTrick ? 10 : 0)
+  );
 }

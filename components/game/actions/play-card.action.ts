@@ -49,7 +49,11 @@ export function handlePlayCard(
       state.step.trump,
     );
 
-    const boardScore = computeBoardScore(board, state.step.trump);
+    const boardScore = computeBoardScore(
+      board,
+      state.step.trump,
+      state.step.trick.num === 7,
+    );
 
     const scores = {
       us: state.step.scores.us + (isUs(winner) ? boardScore : 0),
@@ -68,13 +72,14 @@ export function handlePlayCard(
       };
 
       if (
-        gameScore.us >= state.scores.target ||
-        gameScore.them >= state.scores.target
+        (gameScore.us >= state.scores.target ||
+          gameScore.them >= state.scores.target) &&
+        gameScore.us !== gameScore.them
       )
         return {
           step: {
             name: "end",
-            winners: gameScore.us > gameScore.them ? "us" : "them", // TODO: handle equality
+            winners: gameScore.us > gameScore.them ? "us" : "them",
           },
           deck: [],
           players: removeCardFromPlayerHand(state.players, action),
