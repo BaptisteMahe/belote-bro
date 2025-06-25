@@ -20,25 +20,25 @@ export function computeWinner(
   if (cardsWithPlayer.length === 0)
     throw new Error("Can't compute winner on empty board");
 
+  const trumps = cardsWithPlayer.filter(([_, card]) => card.type === trump);
+
   // If there is a trump, the biggest trump wins
-  if (cardsWithPlayer.some(([_, card]) => card.type === trump)) {
+  if (trumps.length > 0) {
     const maxValue = Math.max(
-      ...cardsWithPlayer
-        .filter(([_, card]) => card.type === trump)
-        .map(([_, card]) => TrumpValues[card.value]),
+      ...trumps.map(([_, card]) => TrumpValues[card.value]),
     );
-    return cardsWithPlayer.find(
-      ([_, card]) => TrumpValues[card.value] === maxValue,
-    )![0];
+    return trumps.find(([_, card]) => TrumpValues[card.value] === maxValue)![0];
   }
+
+  const askedTypes = cardsWithPlayer.filter(
+    ([_, card]) => card.type === askedType,
+  );
 
   // If there isn't any trump, the biggest asked type wins
   const maxValue = Math.max(
-    ...cardsWithPlayer
-      .filter(([_, card]) => card.type === askedType)
-      .map(([_, card]) => NonTrumpValues[card.value]),
+    ...askedTypes.map(([_, card]) => NonTrumpValues[card.value]),
   );
-  return cardsWithPlayer.find(
+  return askedTypes.find(
     ([_, card]) => NonTrumpValues[card.value] === maxValue,
   )![0];
 }

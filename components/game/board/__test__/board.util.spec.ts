@@ -33,6 +33,32 @@ describe("computeWinner", () => {
         "diamond",
       ),
     ).toBe("bottom");
+
+    expect(
+      computeWinner(
+        {
+          bottom: { value: "J", type: "heart" },
+          top: { value: "10", type: "heart" },
+          left: { value: "A", type: "spade" },
+          right: { value: "7", type: "heart" },
+        },
+        "heart",
+        "diamond",
+      ),
+    ).toBe("top");
+
+    expect(
+      computeWinner(
+        {
+          bottom: { value: "J", type: "heart" },
+          left: { value: "10", type: "spade" },
+          top: { value: "10", type: "heart" },
+          right: { value: "7", type: "heart" },
+        },
+        "heart",
+        "diamond",
+      ),
+    ).toBe("top");
   });
 
   it("should give the correct winner on a trump trick", () => {
@@ -76,6 +102,19 @@ describe("computeWinner", () => {
         "diamond",
       ),
     ).toBe("left");
+
+    expect(
+      computeWinner(
+        {
+          bottom: { value: "10", type: "club" },
+          top: { value: "K", type: "club" },
+          left: { value: "8", type: "club" },
+          right: { value: "10", type: "diamond" },
+        },
+        "club",
+        "diamond",
+      ),
+    ).toBe("right");
   });
 
   it("should give the correct winner even on non full boards", () => {
