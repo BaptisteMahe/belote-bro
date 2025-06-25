@@ -16,45 +16,36 @@ export function CardView({ card, face, style, ...rest }: CardViewProps) {
     "text",
   );
 
-  if (face === "verse")
-    return (
-      <ThemedView style={[styles.container, { borderColor }, style]} {...rest}>
-        <ThemedText>Verso</ThemedText>
-      </ThemedView>
-    );
-
   return (
     <ThemedView style={[styles.container, { borderColor }, style]} {...rest}>
-      <ThemedView style={styles.value}>
-        <ThemedText
-          {...(isRed(card) ? { lightColor: "red", darkColor: "red" } : {})}
-        >
-          {`${card.value}${TypeValueMap[card.type]}`}
-        </ThemedText>
-        <ThemedText
-          {...(isRed(card) ? { lightColor: "red", darkColor: "red" } : {})}
-        >
-          {`${card.value}${TypeValueMap[card.type]}`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedText
-        style={[{ fontSize: 22 }]}
-        {...(isRed(card) ? { lightColor: "red", darkColor: "red" } : {})}
-      >
-        {TypeValueMap[card.type]}
-      </ThemedText>
-      <ThemedView style={styles.value}>
-        <ThemedText
-          {...(isRed(card) ? { lightColor: "red", darkColor: "red" } : {})}
-        >
-          {`${card.value}${TypeValueMap[card.type]}`}
-        </ThemedText>
-        <ThemedText
-          {...(isRed(card) ? { lightColor: "red", darkColor: "red" } : {})}
-        >
-          {`${card.value}${TypeValueMap[card.type]}`}
-        </ThemedText>
-      </ThemedView>
+      {face === "verse" ? (
+        <ThemedText>Verso</ThemedText>
+      ) : (
+        <>
+          <ThemedView style={styles.value}>
+            <ThemedText color={isRed(card) ? "red" : undefined}>
+              {`${card.value}${TypeValueMap[card.type]}`}
+            </ThemedText>
+            <ThemedText color={isRed(card) ? "red" : undefined}>
+              {`${card.value}${TypeValueMap[card.type]}`}
+            </ThemedText>
+          </ThemedView>
+          <ThemedText
+            style={[{ fontSize: 22 }]}
+            color={isRed(card) ? "red" : undefined}
+          >
+            {TypeValueMap[card.type]}
+          </ThemedText>
+          <ThemedView style={styles.value}>
+            <ThemedText color={isRed(card) ? "red" : undefined}>
+              {`${card.value}${TypeValueMap[card.type]}`}
+            </ThemedText>
+            <ThemedText color={isRed(card) ? "red" : undefined}>
+              {`${card.value}${TypeValueMap[card.type]}`}
+            </ThemedText>
+          </ThemedView>
+        </>
+      )}
     </ThemedView>
   );
 }
