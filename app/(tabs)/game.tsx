@@ -12,6 +12,8 @@ import { isInTurn } from "@/components/game/player/player.util";
 import { TrumpContext } from "@/components/game/card/trump.context";
 import { TrickContext } from "@/components/game/board/trick.context";
 import { autoPlay } from "@/components/game/auto-play/auto-play";
+import { Debug } from "@/constants/Env";
+import { LeaderContext } from "@/components/game/player/leader.context";
 
 export default function GameScreen() {
   const [gameState, dispatch] = useReducer(gameStateReducer, initGameState());
@@ -21,7 +23,7 @@ export default function GameScreen() {
   }, [gameState.step.name]);
 
   useEffect(() => {
-    console.log("GameState", gameState);
+    if (Debug) console.log("GameState", gameState);
     autoPlay(gameState, dispatch);
   }, [gameState]);
 
@@ -32,82 +34,86 @@ export default function GameScreen() {
       <TrumpContext
         value={gameState.step.name === "play" ? gameState.step.trump : null}
       >
-        <ThemedView style={styles.container}>
-          <ChooseTrumpModal
-            gameState={gameState}
-            onChoose={(type, card) =>
-              dispatch({
-                type: "trumpChoose",
-                card,
-                player: "bottom",
-                trump: type,
-              })
-            }
-            onDeny={() => dispatch({ type: "trumpDeny" })}
-          ></ChooseTrumpModal>
-          <ThemedView style={styles.topRow}>
-            <PreviousTrickView
-              previousTrick={
-                gameState.step.name === "play"
-                  ? gameState.step.trick.previousTrick
-                  : null
+        <LeaderContext
+          value={gameState.step.name === "play" ? gameState.step.leader : null}
+        >
+          <ThemedView style={styles.container}>
+            <ChooseTrumpModal
+              gameState={gameState}
+              onChoose={(type, card) =>
+                dispatch({
+                  type: "trumpChoose",
+                  card,
+                  player: "bottom",
+                  trump: type,
+                })
               }
-            ></PreviousTrickView>
-            <PlayerView
-              player={gameState.players.top}
-              type="top"
-              inTurn={isInTurn(gameState, "top")}
-              onCardPlayed={(card) =>
-                dispatch({ type: "playCard", player: "top", card })
-              }
-            ></PlayerView>
-            <ScoreBoardView
-              gameScores={gameState.scores}
-              roundScores={
-                "scores" in gameState.step ? gameState.step.scores : null
-              }
-            ></ScoreBoardView>
+              onDeny={() => dispatch({ type: "trumpDeny" })}
+            ></ChooseTrumpModal>
+            <ThemedView style={styles.topRow}>
+              <PreviousTrickView
+                previousTrick={
+                  gameState.step.name === "play"
+                    ? gameState.step.trick.previousTrick
+                    : null
+                }
+              ></PreviousTrickView>
+              <PlayerView
+                player={gameState.players.top}
+                type="top"
+                inTurn={isInTurn(gameState, "top")}
+                onCardPlayed={(card) =>
+                  dispatch({ type: "playCard", player: "top", card })
+                }
+              ></PlayerView>
+              <ScoreBoardView
+                gameScores={gameState.scores}
+                roundScores={
+                  "scores" in gameState.step ? gameState.step.scores : null
+                }
+              ></ScoreBoardView>
+            </ThemedView>
+            <ThemedView style={styles.middleRow}>
+              <PlayerView
+                player={gameState.players.left}
+                type="left"
+                inTurn={isInTurn(gameState, "left")}
+                onCardPlayed={(card) =>
+                  dispatch({ type: "playCard", player: "left", card })
+                }
+              ></PlayerView>
+              <GameBoardView gameStep={gameState.step}></GameBoardView>
+              <PlayerView
+                player={gameState.players.right}
+                type="right"
+                inTurn={isInTurn(gameState, "right")}
+                onCardPlayed={(card) =>
+                  dispatch({ type: "playCard", player: "right", card })
+                }
+              ></PlayerView>
+            </ThemedView>
+            <ThemedView style={styles.bottomRow}>
+              <PlayerView
+                player={gameState.players.bottom}
+                type="bottom"
+                inTurn={isInTurn(gameState, "bottom")}
+                onCardPlayed={(card) =>
+                  dispatch({ type: "playCard", player: "bottom", card })
+                }
+              ></PlayerView>
+              <Button
+                title="Reset"
+                disabled={
+                  (gameState.step.name === "chooseTrump" &&
+                    gameState.step.turn !== "bottom") ||
+                  (gameState.step.name === "play" &&
+                    gameState.step.trick.turn !== "bottom")
+                }
+                onPress={() => dispatch({ type: "reset" })}
+              ></Button>
+            </ThemedView>
           </ThemedView>
-          <ThemedView style={styles.middleRow}>
-            <PlayerView
-              player={gameState.players.left}
-              type="left"
-              inTurn={isInTurn(gameState, "left")}
-              onCardPlayed={(card) =>
-                dispatch({ type: "playCard", player: "left", card })
-              }
-            ></PlayerView>
-            <GameBoardView gameStep={gameState.step}></GameBoardView>
-            <PlayerView
-              player={gameState.players.right}
-              type="right"
-              inTurn={isInTurn(gameState, "right")}
-              onCardPlayed={(card) =>
-                dispatch({ type: "playCard", player: "right", card })
-              }
-            ></PlayerView>
-          </ThemedView>
-          <ThemedView style={styles.bottomRow}>
-            <PlayerView
-              player={gameState.players.bottom}
-              type="bottom"
-              inTurn={isInTurn(gameState, "bottom")}
-              onCardPlayed={(card) =>
-                dispatch({ type: "playCard", player: "bottom", card })
-              }
-            ></PlayerView>
-            <Button
-              title="Reset"
-              disabled={
-                (gameState.step.name === "chooseTrump" &&
-                  gameState.step.turn !== "bottom") ||
-                (gameState.step.name === "play" &&
-                  gameState.step.trick.turn !== "bottom")
-              }
-              onPress={() => dispatch({ type: "reset" })}
-            ></Button>
-          </ThemedView>
-        </ThemedView>
+        </LeaderContext>
       </TrumpContext>
     </TrickContext>
   );

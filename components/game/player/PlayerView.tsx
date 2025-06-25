@@ -2,12 +2,15 @@ import { StyleSheet } from "react-native";
 import { ThemedView, ThemedViewProps } from "@/components/ThemedView";
 import { Player } from "@/components/game/player/player.model";
 import { CardView } from "@/components/game/card/CardView";
-import { Card } from "@/components/game/card/card.model";
-import { getId } from "@/components/game/card/card.util";
+import { Card, TypeValueMap } from "@/components/game/card/card.model";
+import { getId, isRed } from "@/components/game/card/card.util";
 import { canPlayCard } from "@/components/game/card/can-play-card";
 import { useContext } from "react";
 import { TrumpContext } from "@/components/game/card/trump.context";
 import { TrickContext } from "@/components/game/board/trick.context";
+import { ThemedText } from "@/components/ThemedText";
+import { useThemeColor } from "@/hooks/useThemeColor";
+import { LeaderContext } from "@/components/game/player/leader.context";
 
 export type PayerViewProps = ThemedViewProps & {
   player: Player;
@@ -24,8 +27,10 @@ export function PlayerView({
   style,
   ...rest
 }: PayerViewProps) {
+  const color = useThemeColor(null, "text");
   const trump = useContext(TrumpContext);
   const trick = useContext(TrickContext);
+  const leader = useContext(LeaderContext);
 
   const numCards = player.hand.length;
   const centerIndex = (numCards - 1) / 2;
@@ -40,44 +45,60 @@ export function PlayerView({
       style={[
         styles.container,
         { transform: [{ rotate: `${TypeRotationMap[type]}deg` }] },
-        inTurn ? styles.inTurnPlayer : null,
         style,
       ]}
       {...rest}
     >
-      {orderCards(player.hand).map((card, index) => {
-        const cardRotation = (index - centerIndex) * rotationPerCard;
-        const isCardPlayable =
-          trump &&
-          trick &&
-          canPlayCard(
-            card,
-            player.hand,
-            type,
-            trick.board,
-            trick.askedType,
-            trump,
-          );
+      <ThemedView style={[styles.handContainer]}>
+        {orderCards(player.hand).map((card, index) => {
+          const cardRotation = (index - centerIndex) * rotationPerCard;
+          const isCardPlayable =
+            trump &&
+            trick &&
+            canPlayCard(
+              card,
+              player.hand,
+              type,
+              trick.board,
+              trick.askedType,
+              trump,
+            );
 
-        return (
-          <CardView
-            onTouchEnd={() => inTurn && isCardPlayable && onCardPlayed(card)}
-            card={card}
-            key={getId(card)}
-            face={isMe ? "straight" : "verse"}
-            style={{
-              marginLeft: index > 0 ? -cardOverlap : 0,
-              marginBottom: -Math.abs(cardRotation),
-              transform: [
-                { rotate: `${cardRotation}deg` },
-                {
-                  translateY: yTranslationPerRotation * Math.abs(cardRotation),
-                },
-              ],
-            }}
-          />
-        );
-      })}
+          return (
+            <CardView
+              onTouchEnd={() => inTurn && isCardPlayable && onCardPlayed(card)}
+              card={card}
+              key={getId(card)}
+              face={isMe ? "straight" : "verse"}
+              style={{
+                marginLeft: index > 0 ? -cardOverlap : 0,
+                marginBottom: -Math.abs(cardRotation),
+                transform: [
+                  { rotate: `${cardRotation}deg` },
+                  {
+                    translateY:
+                      yTranslationPerRotation * Math.abs(cardRotation),
+                  },
+                ],
+              }}
+            />
+          );
+        })}
+      </ThemedView>
+      <ThemedView
+        style={[
+          styles.playerNameContainer,
+          { borderColor: color },
+          inTurn && styles.inTurnPlayer,
+        ]}
+      >
+        <ThemedText>{`${player.name[0].toUpperCase()}${player.name[1]}`}</ThemedText>
+        {trump && type === leader && (
+          <ThemedText color={isRed(trump) ? "red" : undefined}>
+            {TypeValueMap[trump]}
+          </ThemedText>
+        )}
+      </ThemedView>
     </ThemedView>
   );
 }
@@ -95,12 +116,23 @@ function orderCards(cards: Card[]) {
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  handContainer: {
     flexDirection: "row",
   },
   inTurnPlayer: {
     borderColor: "red",
-    borderWidth: 2,
     borderStyle: "dashed",
-    borderRadius: 10,
+  },
+  playerNameContainer: {
+    marginTop: -20,
+    borderWidth: 2,
+    width: 60,
+    height: 60,
+    borderRadius: 60 / 2,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

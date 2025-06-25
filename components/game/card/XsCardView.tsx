@@ -17,7 +17,7 @@ export function XsCardView({ card, style, ...rest }: XsCardViewProps) {
 
   return (
     <ThemedView style={[styles.container, { borderColor }, style]} {...rest}>
-      <ThemedText color={isRed(card) ? "red" : undefined}>
+      <ThemedText color={isRed(card.type) ? "red" : undefined}>
         {`${card.value}${TypeValueMap[card.type]}`}
       </ThemedText>
     </ThemedView>

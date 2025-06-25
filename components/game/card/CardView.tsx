@@ -23,24 +23,24 @@ export function CardView({ card, face, style, ...rest }: CardViewProps) {
       ) : (
         <>
           <ThemedView style={styles.value}>
-            <ThemedText color={isRed(card) ? "red" : undefined}>
+            <ThemedText color={isRed(card.type) ? "red" : undefined}>
               {`${card.value}${TypeValueMap[card.type]}`}
             </ThemedText>
-            <ThemedText color={isRed(card) ? "red" : undefined}>
+            <ThemedText color={isRed(card.type) ? "red" : undefined}>
               {`${card.value}${TypeValueMap[card.type]}`}
             </ThemedText>
           </ThemedView>
           <ThemedText
             style={[{ fontSize: 22 }]}
-            color={isRed(card) ? "red" : undefined}
+            color={isRed(card.type) ? "red" : undefined}
           >
             {TypeValueMap[card.type]}
           </ThemedText>
           <ThemedView style={styles.value}>
-            <ThemedText color={isRed(card) ? "red" : undefined}>
+            <ThemedText color={isRed(card.type) ? "red" : undefined}>
               {`${card.value}${TypeValueMap[card.type]}`}
             </ThemedText>
-            <ThemedText color={isRed(card) ? "red" : undefined}>
+            <ThemedText color={isRed(card.type) ? "red" : undefined}>
               {`${card.value}${TypeValueMap[card.type]}`}
             </ThemedText>
           </ThemedView>

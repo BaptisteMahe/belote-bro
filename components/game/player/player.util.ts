@@ -5,7 +5,7 @@ import { CardType } from "@/components/game/card/card.model";
 
 export function initPlayer(): Player {
   return {
-    id: uuid.v4(),
+    name: uuid.v4(),
     hand: [],
   };
 }

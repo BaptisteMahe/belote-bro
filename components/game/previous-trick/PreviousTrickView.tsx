@@ -3,9 +3,7 @@ import { PlayGameStep } from "@/components/game/game-state/game-state.model";
 import { StyleSheet } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { useThemeColor } from "@/hooks/useThemeColor";
-import { useContext } from "react";
-import { TrumpContext } from "@/components/game/card/trump.context";
-import { TypeValueMap } from "@/components/game/card/card.model";
+import { XsCardView } from "@/components/game/card/XsCardView";
 
 export type PreviousTrickViewProps = ThemedViewProps & {
   previousTrick: PlayGameStep["trick"]["previousTrick"];
@@ -17,28 +15,51 @@ export function PreviousTrickView({
   ...rest
 }: PreviousTrickViewProps) {
   const borderColor = useThemeColor(null, "text");
-  const trump = useContext(TrumpContext);
 
   return (
     <ThemedView style={[style, styles.container, { borderColor }]} {...rest}>
-      {trump && <ThemedText>Trump: {TypeValueMap[trump]}</ThemedText>}
       <ThemedText>Last trick</ThemedText>
       {previousTrick && (
         <ThemedView style={[{ width: "100%" }]}>
-          <ThemedText style={[styles.row, styles.topRow]}>
-            {`${previousTrick.board.top.value}${TypeValueMap[previousTrick.board.top.type]}`}
-          </ThemedText>
-          <ThemedView style={[styles.row, styles.middleRow]}>
-            <ThemedText>
-              {`${previousTrick.board.left.value}${TypeValueMap[previousTrick.board.left.type]}`}
-            </ThemedText>
-            <ThemedText>
-              {`${previousTrick.board.right.value}${TypeValueMap[previousTrick.board.right.type]}`}
-            </ThemedText>
+          <ThemedView style={[styles.row, styles.topRow]}>
+            <XsCardView
+              style={
+                previousTrick.winner === "top"
+                  ? [{ borderColor: "yellow" }]
+                  : null
+              }
+              card={previousTrick.board.top}
+            ></XsCardView>
           </ThemedView>
-          <ThemedText style={[styles.row, styles.row, styles.bottomRow]}>
-            {`${previousTrick.board.bottom.value}${TypeValueMap[previousTrick.board.bottom.type]}`}
-          </ThemedText>
+
+          <ThemedView style={[styles.row, styles.middleRow]}>
+            <XsCardView
+              style={
+                previousTrick.winner === "left"
+                  ? [{ borderColor: "yellow" }]
+                  : null
+              }
+              card={previousTrick.board.left}
+            ></XsCardView>
+            <XsCardView
+              style={
+                previousTrick.winner === "right"
+                  ? [{ borderColor: "yellow" }]
+                  : null
+              }
+              card={previousTrick.board.right}
+            ></XsCardView>
+          </ThemedView>
+          <ThemedView style={[styles.row, styles.bottomRow]}>
+            <XsCardView
+              style={
+                previousTrick.winner === "bottom"
+                  ? [{ borderColor: "yellow" }]
+                  : null
+              }
+              card={previousTrick.board.bottom}
+            ></XsCardView>
+          </ThemedView>
         </ThemedView>
       )}
     </ThemedView>
@@ -60,13 +81,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   topRow: {
-    textAlign: "center",
+    justifyContent: "center",
   },
   middleRow: {
     justifyContent: "space-around",
     alignItems: "center",
   },
   bottomRow: {
-    textAlign: "center",
+    justifyContent: "center",
   },
 });

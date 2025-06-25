@@ -14,10 +14,10 @@ describe("play-card.action", () => {
         step: { name: "init" },
         deck: [],
         players: {
-          bottom: { id: "bottom-id", hand: [] },
-          left: { id: "left-id", hand: [] },
-          top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [] },
+          bottom: { name: "bottom-id", hand: [] },
+          left: { name: "left-id", hand: [] },
+          top: { name: "top-id", hand: [] },
+          right: { name: "right-id", hand: [] },
         },
         scores: { us: 0, them: 0, target: 501 },
       };
@@ -60,10 +60,10 @@ describe("play-card.action", () => {
         },
         deck: [],
         players: {
-          bottom: { id: "bottom-id", hand: [mockCard] },
-          left: { id: "left-id", hand: [] },
-          top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [] },
+          bottom: { name: "bottom-id", hand: [mockCard] },
+          left: { name: "left-id", hand: [] },
+          top: { name: "top-id", hand: [] },
+          right: { name: "right-id", hand: [] },
         },
         scores: { us: 0, them: 0, target: 501 },
       };
@@ -123,10 +123,10 @@ describe("play-card.action", () => {
         },
         deck: [],
         players: {
-          bottom: { id: "bottom-id", hand: [] },
-          left: { id: "left-id", hand: [] },
-          top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [mockCards.right] },
+          bottom: { name: "bottom-id", hand: [] },
+          left: { name: "left-id", hand: [] },
+          top: { name: "top-id", hand: [] },
+          right: { name: "right-id", hand: [mockCards.right] },
         },
         scores: { us: 0, them: 0, target: 501 },
       };
@@ -204,10 +204,10 @@ describe("play-card.action", () => {
         },
         deck: [],
         players: {
-          bottom: { id: "bottom-id", hand: [] },
-          left: { id: "left-id", hand: [] },
-          top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [mockCards.right] },
+          bottom: { name: "bottom-id", hand: [] },
+          left: { name: "left-id", hand: [] },
+          top: { name: "top-id", hand: [] },
+          right: { name: "right-id", hand: [mockCards.right] },
         },
         scores: { us: 450, them: 400, target: 501 },
       };
@@ -269,10 +269,10 @@ describe("play-card.action", () => {
         },
         deck: [],
         players: {
-          bottom: { id: "bottom-id", hand: [] },
-          left: { id: "left-id", hand: [] },
-          top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [mockCards.right] },
+          bottom: { name: "bottom-id", hand: [] },
+          left: { name: "left-id", hand: [] },
+          top: { name: "top-id", hand: [] },
+          right: { name: "right-id", hand: [mockCards.right] },
         },
         scores: { us: 300, them: 300, target: 501 },
       };
@@ -357,10 +357,10 @@ describe("play-card.action", () => {
         },
         deck: [],
         players: {
-          bottom: { id: "bottom-id", hand: [] },
-          left: { id: "left-id", hand: [] },
-          top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [mockCards.right] },
+          bottom: { name: "bottom-id", hand: [] },
+          left: { name: "left-id", hand: [] },
+          top: { name: "top-id", hand: [] },
+          right: { name: "right-id", hand: [mockCards.right] },
         },
         scores: { us: 0, them: 0, target: 501 },
       };
@@ -417,10 +417,10 @@ describe("play-card.action", () => {
         },
         deck: [],
         players: {
-          bottom: { id: "bottom-id", hand: [] },
-          left: { id: "left-id", hand: [] },
-          top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [mockCards.right] },
+          bottom: { name: "bottom-id", hand: [] },
+          left: { name: "left-id", hand: [] },
+          top: { name: "top-id", hand: [] },
+          right: { name: "right-id", hand: [mockCards.right] },
         },
         scores: { us: 0, them: 0, target: 501 },
       };
@@ -477,10 +477,10 @@ describe("play-card.action", () => {
         },
         deck: [],
         players: {
-          bottom: { id: "bottom-id", hand: [] },
-          left: { id: "left-id", hand: [] },
-          top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [mockCards.right] },
+          bottom: { name: "bottom-id", hand: [] },
+          left: { name: "left-id", hand: [] },
+          top: { name: "top-id", hand: [] },
+          right: { name: "right-id", hand: [mockCards.right] },
         },
         scores: { us: 0, them: 0, target: 501 },
       };
@@ -538,10 +538,10 @@ describe("play-card.action", () => {
         },
         deck: [],
         players: {
-          bottom: { id: "bottom-id", hand: [] },
-          left: { id: "left-id", hand: [] },
-          top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [mockCards.right] },
+          bottom: { name: "bottom-id", hand: [] },
+          left: { name: "left-id", hand: [] },
+          top: { name: "top-id", hand: [] },
+          right: { name: "right-id", hand: [mockCards.right] },
         },
         scores: { us: 0, them: 0, target: 501 },
       };
@@ -600,10 +600,10 @@ describe("play-card.action", () => {
         },
         deck: [],
         players: {
-          bottom: { id: "bottom-id", hand: [] },
-          left: { id: "left-id", hand: [] },
-          top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [mockCards.right] },
+          bottom: { name: "bottom-id", hand: [] },
+          left: { name: "left-id", hand: [] },
+          top: { name: "top-id", hand: [] },
+          right: { name: "right-id", hand: [mockCards.right] },
         },
         scores: { us: 0, them: 0, target: 501 },
       };
@@ -655,16 +655,16 @@ describe("play-card.action", () => {
         deck: [],
         players: {
           bottom: {
-            id: "bottom-id",
+            name: "bottom-id",
             hand: [
               mockCard,
               { type: "heart", value: "K" },
               { type: "spade", value: "Q" },
             ],
           },
-          left: { id: "left-id", hand: [] },
-          top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [] },
+          left: { name: "left-id", hand: [] },
+          top: { name: "top-id", hand: [] },
+          right: { name: "right-id", hand: [] },
         },
         scores: { us: 0, them: 0, target: 501 },
       };

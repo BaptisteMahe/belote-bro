@@ -8,6 +8,6 @@ export function isTrump(card: Card, trump: CardType) {
   return card.type === trump;
 }
 
-export function isRed(card: Card) {
-  return ["heart", "diamond"].includes(card.type);
+export function isRed(type: CardType) {
+  return ["heart", "diamond"].includes(type);
 }

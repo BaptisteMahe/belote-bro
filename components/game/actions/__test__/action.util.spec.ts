@@ -61,11 +61,11 @@ describe("action.util", () => {
   describe("deal", () => {
     it("should deal the specified number of cards to each player in order", () => {
       const starter: PlayerType = "bottom";
-      const players = {
-        bottom: { id: "1", hand: [] },
-        left: { id: "2", hand: [] },
-        top: { id: "3", hand: [] },
-        right: { id: "4", hand: [] },
+      const players: GameState["players"] = {
+        bottom: { name: "1", hand: [] },
+        left: { name: "2", hand: [] },
+        top: { name: "3", hand: [] },
+        right: { name: "4", hand: [] },
       };
       const mockDeck: Card[] = [
         { type: "heart", value: "A" },
@@ -117,11 +117,11 @@ describe("action.util", () => {
 
     it("should deal different numbers of cards to each player when numCards is an object", () => {
       const starter: PlayerType = "left";
-      const players = {
-        bottom: { id: "1", hand: [] },
-        left: { id: "2", hand: [] },
-        top: { id: "3", hand: [] },
-        right: { id: "4", hand: [] },
+      const players: GameState["players"] = {
+        bottom: { name: "1", hand: [] },
+        left: { name: "2", hand: [] },
+        top: { name: "3", hand: [] },
+        right: { name: "4", hand: [] },
       };
       const mockDeck: Card[] = [
         { type: "heart", value: "A" },
@@ -183,10 +183,10 @@ describe("action.util", () => {
     it("should add cards to existing hands", () => {
       const starter: PlayerType = "top";
       const players: GameState["players"] = {
-        bottom: { id: "1", hand: [{ type: "heart", value: "A" }] },
-        left: { id: "2", hand: [{ type: "diamond", value: "K" }] },
-        top: { id: "3", hand: [{ type: "spade", value: "Q" }] },
-        right: { id: "4", hand: [{ type: "club", value: "J" }] },
+        bottom: { name: "1", hand: [{ type: "heart", value: "A" }] },
+        left: { name: "2", hand: [{ type: "diamond", value: "K" }] },
+        top: { name: "3", hand: [{ type: "spade", value: "Q" }] },
+        right: { name: "4", hand: [{ type: "club", value: "J" }] },
       };
       const mockDeck: Card[] = [
         { type: "heart", value: "10" },

@@ -4,6 +4,6 @@ export const PlayerTypes = ["bottom", "left", "top", "right"] as const;
 export type PlayerType = (typeof PlayerTypes)[number];
 
 export type Player = {
-  id: string;
+  name: string;
   hand: Card[];
 };

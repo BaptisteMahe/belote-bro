@@ -20,10 +20,10 @@ describe("trump-choose.action", () => {
         step: { name: "init" },
         deck: [],
         players: {
-          bottom: { id: "bottom-id", hand: [] },
-          left: { id: "left-id", hand: [] },
-          top: { id: "top-id", hand: [] },
-          right: { id: "right-id", hand: [] },
+          bottom: { name: "bottom-id", hand: [] },
+          left: { name: "left-id", hand: [] },
+          top: { name: "top-id", hand: [] },
+          right: { name: "right-id", hand: [] },
         },
         scores: { us: 0, them: 0, target: 501 },
       };
@@ -50,11 +50,11 @@ describe("trump-choose.action", () => {
         // ... more cards would be here in a real game
       ];
 
-      const initialPlayers = {
-        bottom: { id: "bottom-id", hand: [] },
-        left: { id: "left-id", hand: [] },
-        top: { id: "top-id", hand: [] },
-        right: { id: "right-id", hand: [] },
+      const initialPlayers: GameState["players"] = {
+        bottom: { name: "bottom-id", hand: [] },
+        left: { name: "left-id", hand: [] },
+        top: { name: "top-id", hand: [] },
+        right: { name: "right-id", hand: [] },
       };
 
       const state = {
@@ -78,11 +78,11 @@ describe("trump-choose.action", () => {
       };
 
       // Mock the deal function to return updated players and deck
-      const updatedPlayers = {
-        bottom: { id: "bottom-id", hand: [] },
-        left: { id: "left-id", hand: [] },
-        top: { id: "top-id", hand: [] },
-        right: { id: "right-id", hand: [] },
+      const updatedPlayers: GameState["players"] = {
+        bottom: { name: "bottom-id", hand: [] },
+        left: { name: "left-id", hand: [] },
+        top: { name: "top-id", hand: [] },
+        right: { name: "right-id", hand: [] },
       };
       const updatedDeck = initialDeck.slice(1);
       mockDeal.mockReturnValue([updatedPlayers, updatedDeck] as const);
@@ -129,11 +129,11 @@ describe("trump-choose.action", () => {
     it("should deal the correct number of cards to each player", () => {
       // Arrange
       const initialDeck: Card[] = Array(32).fill({ type: "heart", value: "A" });
-      const initialPlayers = {
-        bottom: { id: "bottom-id", hand: [] },
-        left: { id: "left-id", hand: [] },
-        top: { id: "top-id", hand: [] },
-        right: { id: "right-id", hand: [] },
+      const initialPlayers: GameState["players"] = {
+        bottom: { name: "bottom-id", hand: [] },
+        left: { name: "left-id", hand: [] },
+        top: { name: "top-id", hand: [] },
+        right: { name: "right-id", hand: [] },
       };
 
       const state: GameState = {
@@ -157,21 +157,21 @@ describe("trump-choose.action", () => {
       };
 
       // Create mock players with hands to simulate deal
-      const updatedPlayers = {
+      const updatedPlayers: GameState["players"] = {
         bottom: {
-          id: "bottom-id",
+          name: "bottom-id",
           hand: Array(3).fill({ type: "heart", value: "A" }),
         },
         left: {
-          id: "left-id",
+          name: "left-id",
           hand: Array(2).fill({ type: "heart", value: "A" }),
         },
         top: {
-          id: "top-id",
+          name: "top-id",
           hand: Array(3).fill({ type: "heart", value: "A" }),
         },
         right: {
-          id: "right-id",
+          name: "right-id",
           hand: Array(3).fill({ type: "heart", value: "A" }),
         },
       };

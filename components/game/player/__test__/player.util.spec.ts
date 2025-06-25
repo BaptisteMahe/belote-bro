@@ -15,7 +15,7 @@ describe("player.util", () => {
       const player = initPlayer();
 
       // Check that the player has the expected properties
-      expect(player).toHaveProperty("id");
+      expect(player).toHaveProperty("name");
       expect(player).toHaveProperty("hand");
 
       // Check that the hand is initially empty
@@ -25,7 +25,7 @@ describe("player.util", () => {
       expect(uuid.v4).toHaveBeenCalled();
 
       // Check that the ID is the mocked value
-      expect(player.id).toBe("mock-uuid");
+      expect(player.name).toBe("mock-uuid");
     });
 
     it("should create a player with a unique ID each time", () => {
@@ -37,9 +37,9 @@ describe("player.util", () => {
       const player2 = initPlayer();
 
       // The players should have different IDs
-      expect(player1.id).toBe("uuid-1");
-      expect(player2.id).toBe("uuid-2");
-      expect(player1.id).not.toBe(player2.id);
+      expect(player1.name).toBe("uuid-1");
+      expect(player2.name).toBe("uuid-2");
+      expect(player1.name).not.toBe(player2.name);
     });
   });
 
@@ -70,7 +70,7 @@ describe("player.util", () => {
       expect(
         hasBeloteAndRe(
           {
-            id: "mock-uuid",
+            name: "mock-uuid",
             hand: [
               { value: "K", type: "heart" },
               { value: "Q", type: "heart" },
@@ -87,7 +87,7 @@ describe("player.util", () => {
       expect(
         hasBeloteAndRe(
           {
-            id: "mock-uuid",
+            name: "mock-uuid",
             hand: [
               { value: "K", type: "heart" },
               { value: "Q", type: "heart" },
