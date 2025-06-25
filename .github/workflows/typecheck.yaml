@@ -4,7 +4,7 @@ on:
       - main
 
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo
@@ -24,5 +24,5 @@ jobs:
       - name: 📦 Install dependencies
         run: bun install
 
-      - name: 🧪 Run tests
-        run: bun run test
+      - name: ✓ Run typecheck
+        run: bun run typecheck
