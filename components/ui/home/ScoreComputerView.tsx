@@ -1,9 +1,10 @@
-import { Button, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import { useState } from "react";
 import { Scores } from "@/components/game/score/scores.model";
 import { ThemedTextInput } from "@/components/ThemedTextInput";
+import { ThemedButton } from "@/components/ThemedButton";
 
 export function ScoreComputerView() {
   const [scores, setScores] = useState<Scores[]>([]);
@@ -49,24 +50,24 @@ export function ScoreComputerView() {
       </ThemedView>
       <ThemedView style={[styles.scoreRow]}>
         <ThemedText type={"subtitle"}>
-          {scores.reduce((acc, score) => acc + score.us, 0) +
+          {scores.reduce((acc, { us }) => acc + us, 0) +
             (isNaN(usNum) ? 0 : usNum)}
         </ThemedText>
         <ThemedText type={"subtitle"}>
-          {scores.reduce((acc, score) => acc + score.them, 0) +
+          {scores.reduce((acc, { them }) => acc + them, 0) +
             (isNaN(themNum) ? 0 : themNum)}
         </ThemedText>
       </ThemedView>
       <ThemedView style={[styles.scoreRow]}>
-        <Button
-          title={"Reset"}
+        <ThemedButton
+          label={"Reset"}
           onPress={() => {
             setScores([]);
             resetInputs();
           }}
-        ></Button>
-        <Button
-          title={"Add"}
+        ></ThemedButton>
+        <ThemedButton
+          label={"Add"}
           onPress={() => {
             setScores([
               ...scores,
@@ -77,7 +78,7 @@ export function ScoreComputerView() {
             ]);
             resetInputs();
           }}
-        ></Button>
+        ></ThemedButton>
       </ThemedView>
     </ThemedView>
   );

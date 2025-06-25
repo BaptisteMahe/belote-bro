@@ -1,4 +1,4 @@
-import { Button, Modal, StyleSheet, View } from "react-native";
+import { Modal, StyleSheet, View } from "react-native";
 import { ThemedView, ThemedViewProps } from "@/components/ThemedView";
 import {
   ChooseTrumpGameStep,
@@ -11,6 +11,8 @@ import {
   CardTypes,
   TypeValueMap,
 } from "@/components/game/card/card.model";
+import { ThemedButton } from "@/components/ThemedButton";
+import { isRed } from "@/components/game/card/card.util";
 
 export type ChooseTrumpModalProps = ThemedViewProps & {
   gameState: GameState;
@@ -73,11 +75,11 @@ function ModalContentFirstRound({
     <>
       <CardView card={gameStep.card} face="straight"></CardView>
       <ThemedView style={[styles.buttonsContainer]}>
-        <Button
-          title="Choose"
+        <ThemedButton
+          label="Choose"
           onPress={() => onChoose(gameStep.card.type, gameStep.card)}
-        ></Button>
-        <Button title="Deny" onPress={onDeny}></Button>
+        ></ThemedButton>
+        <ThemedButton label="Deny" onPress={onDeny}></ThemedButton>
       </ThemedView>
     </>
   );
@@ -97,13 +99,15 @@ function ModalContentSecondRound({
       <CardView card={gameStep.card} face="straight"></CardView>
       <ThemedView style={[styles.buttonsContainer]}>
         {CardTypes.filter((type) => type !== gameStep.card.type).map((type) => (
-          <Button
+          <ThemedButton
             key={type}
-            title={`${TypeValueMap[type]}`}
+            label={`${TypeValueMap[type]}`}
+            color={isRed(type) ? "red" : undefined}
             onPress={() => onChoose(type, gameStep.card)}
-          ></Button>
+            style={[{ width: "100%" }]}
+          ></ThemedButton>
         ))}
-        <Button title="Deny" onPress={onDeny}></Button>
+        <ThemedButton label="Deny" onPress={onDeny}></ThemedButton>
       </ThemedView>
     </>
   );
@@ -131,5 +135,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-around",
+    gap: 5,
   },
 });

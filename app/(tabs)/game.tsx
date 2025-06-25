@@ -1,4 +1,4 @@
-import { Button, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { ThemedView } from "@/components/ThemedView";
 import { PlayerView } from "@/components/game/player/PlayerView";
 import { useEffect, useReducer } from "react";
@@ -14,6 +14,7 @@ import { TrickContext } from "@/components/game/board/trick.context";
 import { autoPlay } from "@/components/game/auto-play/auto-play";
 import { Debug } from "@/constants/Env";
 import { LeaderContext } from "@/components/game/player/leader.context";
+import { ThemedButton } from "@/components/ThemedButton";
 
 export default function GameScreen() {
   const [gameState, dispatch] = useReducer(gameStateReducer, initGameState());
@@ -101,8 +102,8 @@ export default function GameScreen() {
                   dispatch({ type: "playCard", player: "bottom", card })
                 }
               ></PlayerView>
-              <Button
-                title="Reset"
+              <ThemedButton
+                label="Reset"
                 disabled={
                   (gameState.step.name === "chooseTrump" &&
                     gameState.step.turn !== "bottom") ||
@@ -110,7 +111,7 @@ export default function GameScreen() {
                     gameState.step.trick.turn !== "bottom")
                 }
                 onPress={() => dispatch({ type: "reset" })}
-              ></Button>
+              ></ThemedButton>
             </ThemedView>
           </ThemedView>
         </LeaderContext>
