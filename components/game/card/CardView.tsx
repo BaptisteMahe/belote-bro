@@ -1,51 +1,77 @@
-import { ThemedView, ThemedViewProps } from "@/components/ThemedView";
-import { StyleSheet } from "react-native";
+import { ThemedView } from "@/components/ThemedView";
+import { StyleSheet, View, ViewProps } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { Card, TypeValueMap } from "@/components/game/card/card.model";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { isRed } from "@/components/game/card/card.util";
+import { useContext } from "react";
+import { TrumpContext } from "@/components/game/card/trump.context";
 
-export type CardViewProps = ThemedViewProps & {
+export type CardViewProps = ViewProps & {
   card: Card;
   face: "straight" | "verse";
+  playable?: boolean;
 };
 
-export function CardView({ card, face, style, ...rest }: CardViewProps) {
+export function CardView({
+  card,
+  face,
+  playable,
+  style,
+  ...rest
+}: CardViewProps) {
+  const backgroundColor = useThemeColor(
+    face === "straight" && playable !== undefined && !playable
+      ? { light: "lightgray", dark: "dimgray" }
+      : null,
+    "background",
+  );
+  const trump = useContext(TrumpContext);
   const borderColor = useThemeColor(
-    { light: rest.lightColor, dark: rest.darkColor },
+    face === "straight" && card.type === trump
+      ? { light: "darkgoldenrod", dark: "yellow" }
+      : null,
     "text",
   );
 
-  return (
-    <ThemedView style={[styles.container, { borderColor }, style]} {...rest}>
-      {face === "verse" ? (
+  if (face === "verse") {
+    return (
+      <ThemedView
+        style={[styles.container, { borderColor, backgroundColor }, style]}
+        {...rest}
+      >
         <ThemedText>Verso</ThemedText>
-      ) : (
-        <>
-          <ThemedView style={styles.value}>
-            <ThemedText color={isRed(card.type) ? "red" : undefined}>
-              {`${card.value}${TypeValueMap[card.type]}`}
-            </ThemedText>
-            <ThemedText color={isRed(card.type) ? "red" : undefined}>
-              {`${card.value}${TypeValueMap[card.type]}`}
-            </ThemedText>
-          </ThemedView>
-          <ThemedText
-            style={[{ fontSize: 22 }]}
-            color={isRed(card.type) ? "red" : undefined}
-          >
-            {TypeValueMap[card.type]}
-          </ThemedText>
-          <ThemedView style={styles.value}>
-            <ThemedText color={isRed(card.type) ? "red" : undefined}>
-              {`${card.value}${TypeValueMap[card.type]}`}
-            </ThemedText>
-            <ThemedText color={isRed(card.type) ? "red" : undefined}>
-              {`${card.value}${TypeValueMap[card.type]}`}
-            </ThemedText>
-          </ThemedView>
-        </>
-      )}
+      </ThemedView>
+    );
+  }
+
+  return (
+    <ThemedView
+      style={[styles.container, { borderColor, backgroundColor }, style]}
+      {...rest}
+    >
+      <View style={styles.value}>
+        <ThemedText color={isRed(card.type) ? "red" : undefined}>
+          {`${card.value}${TypeValueMap[card.type]}`}
+        </ThemedText>
+        <ThemedText color={isRed(card.type) ? "red" : undefined}>
+          {`${card.value}${TypeValueMap[card.type]}`}
+        </ThemedText>
+      </View>
+      <ThemedText
+        style={[{ fontSize: 22 }]}
+        color={isRed(card.type) ? "red" : undefined}
+      >
+        {TypeValueMap[card.type]}
+      </ThemedText>
+      <View style={styles.value}>
+        <ThemedText color={isRed(card.type) ? "red" : undefined}>
+          {`${card.value}${TypeValueMap[card.type]}`}
+        </ThemedText>
+        <ThemedText color={isRed(card.type) ? "red" : undefined}>
+          {`${card.value}${TypeValueMap[card.type]}`}
+        </ThemedText>
+      </View>
     </ThemedView>
   );
 }

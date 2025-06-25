@@ -59,8 +59,8 @@ export function PlayerView({
         {orderCards(player.hand, trump).map((card, index) => {
           const cardRotation = (index - centerIndex) * rotationPerCard;
           const isCardPlayable =
-            trump &&
-            trick &&
+            !!trump &&
+            !!trick &&
             canPlayCard(
               card,
               player.hand,
@@ -76,6 +76,9 @@ export function PlayerView({
               card={card}
               key={getId(card)}
               face={isMe ? "straight" : "verse"}
+              playable={
+                trick && trick.turn === type ? isCardPlayable : undefined
+              }
               style={{
                 marginLeft: index > 0 ? -cardOverlap : 0,
                 marginBottom: -Math.abs(cardRotation),
