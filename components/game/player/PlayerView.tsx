@@ -2,7 +2,13 @@ import { StyleSheet } from "react-native";
 import { ThemedView, ThemedViewProps } from "@/components/ThemedView";
 import { Player } from "@/components/game/player/player.model";
 import { CardView } from "@/components/game/card/CardView";
-import { Card, TypeValueMap } from "@/components/game/card/card.model";
+import {
+  Card,
+  CardType,
+  NonTrumpValues,
+  TrumpValues,
+  TypeValueMap,
+} from "@/components/game/card/card.model";
 import { getId, isRed } from "@/components/game/card/card.util";
 import { canPlayCard } from "@/components/game/card/can-play-card";
 import { useContext } from "react";
@@ -50,7 +56,7 @@ export function PlayerView({
       {...rest}
     >
       <ThemedView style={[styles.handContainer]}>
-        {orderCards(player.hand).map((card, index) => {
+        {orderCards(player.hand, trump).map((card, index) => {
           const cardRotation = (index - centerIndex) * rotationPerCard;
           const isCardPlayable =
             trump &&
@@ -110,9 +116,26 @@ const TypeRotationMap = {
   right: 270,
 } as const;
 
-function orderCards(cards: Card[]) {
-  return [...cards].sort((a, b) => getId(a).localeCompare(getId(b)));
+function orderCards(cards: Card[], trump: CardType | null) {
+  return [...cards].sort(
+    (a, b) =>
+      (a.type === trump
+        ? 1000 + TrumpValues[a.value]
+        : NonTrumpValues[a.value]) +
+      CardTypeValues[a.type] -
+      ((b.type === trump
+        ? 1000 + TrumpValues[b.value]
+        : NonTrumpValues[b.value]) +
+        CardTypeValues[b.type]),
+  );
 }
+
+const CardTypeValues = {
+  heart: 100,
+  spade: 200,
+  diamond: 300,
+  club: 400,
+} as const satisfies { [key in CardType]: number };
 
 const styles = StyleSheet.create({
   container: {
