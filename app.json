@@ -10,7 +10,16 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.bmahe.belotebro"
+      "bundleIdentifier": "com.bmahe.belotebro",
+      "infoPlist": {
+        "NSBonjourServices": [
+          "._tcp"
+        ],
+        "NSLocalNetworkUsageDescription": "Allow Belote Bro to discover devices on the local network."
+      },
+      "entitlements": {
+        "com.apple.developer.networking.multicast": true
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -18,7 +27,13 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.bmahe.belotebro"
+      "package": "com.bmahe.belotebro",
+      "permissions": [
+        "android.permission.ACCESS_WIFI_STATE",
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.CHANGE_WIFI_MULTICAST_STATE",
+        "android.permission.INTERNET"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -34,6 +49,14 @@
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
         }
       ]
     ],

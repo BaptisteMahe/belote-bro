@@ -297,7 +297,9 @@ describe("play-card.action", () => {
       });
 
       const originalInitGameState =
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         require("@/components/game/game-state/game-state.util").initGameState;
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       require("@/components/game/game-state/game-state.util").initGameState =
         mockInitGameState;
 
@@ -318,6 +320,7 @@ describe("play-card.action", () => {
       expect(result.step.name).toBe("init");
 
       // Restore original function
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       require("@/components/game/game-state/game-state.util").initGameState =
         originalInitGameState;
     });
