@@ -13,7 +13,7 @@
       "bundleIdentifier": "com.bmahe.belotebro",
       "infoPlist": {
         "NSBonjourServices": [
-          "._tcp"
+          "._http._tcp"
         ],
         "NSLocalNetworkUsageDescription": "Allow Belote Bro to discover devices on the local network."
       },

@@ -5,31 +5,58 @@ import { ThemedView } from "@/components/ThemedView";
 import { ThemedButton } from "@/components/ThemedButton";
 import { ThemedText } from "@/components/ThemedText";
 import { useThemeColor } from "@/hooks/useThemeColor";
+import { LocalRoomModal } from "@/components/networking/local/LocalRoomModal";
 
 export default function GameScreen() {
   const [isInSession, setIsInSession] = useState<boolean>(false);
+  const [localModalVisible, setLocalModalVisible] = useState<boolean>(false);
+  const [hosting, setHosting] = useState<boolean>(false);
 
   const borderColor = useThemeColor(null, "text");
 
   if (!isInSession)
     return (
-      <ThemedView style={[styles.container]}>
-        <ThemedView style={[styles.sessionSelectionContainer, { borderColor }]}>
-          <ThemedText type={"subtitle"}>
-            🛜 Local session (on the same local network) 🛜
-          </ThemedText>
-          <ThemedButton label={"Create room"}></ThemedButton>
-          <ThemedButton label={"Join room"}></ThemedButton>
-        </ThemedView>
+      <>
+        {localModalVisible && (
+          <LocalRoomModal
+            visible={localModalVisible}
+            hosting={hosting}
+          ></LocalRoomModal>
+        )}
+        <ThemedView style={[styles.container]}>
+          <ThemedView
+            style={[styles.sessionSelectionContainer, { borderColor }]}
+          >
+            <ThemedText type={"subtitle"}>
+              🛜 Local session (on the same local network) 🛜
+            </ThemedText>
+            <ThemedButton
+              label={"Create room"}
+              onPress={() => {
+                setHosting(true);
+                setLocalModalVisible(true);
+              }}
+            ></ThemedButton>
+            <ThemedButton
+              label={"Join room"}
+              onPress={() => {
+                setHosting(false);
+                setLocalModalVisible(true);
+              }}
+            ></ThemedButton>
+          </ThemedView>
 
-        <ThemedView style={[styles.sessionSelectionContainer, { borderColor }]}>
-          <ThemedText type={"subtitle"}>
-            🌐 Remote session (over the internet) 🌐
-          </ThemedText>
-          <ThemedButton label={"Create room"}></ThemedButton>
-          <ThemedButton label={"Join room"}></ThemedButton>
+          <ThemedView
+            style={[styles.sessionSelectionContainer, { borderColor }]}
+          >
+            <ThemedText type={"subtitle"}>
+              🌐 Remote session (over the internet) 🌐
+            </ThemedText>
+            <ThemedButton label={"Create room"}></ThemedButton>
+            <ThemedButton label={"Join room"}></ThemedButton>
+          </ThemedView>
         </ThemedView>
-      </ThemedView>
+      </>
     );
 
   return <GameView></GameView>; // TODO: add session params as input.
