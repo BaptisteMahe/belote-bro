@@ -1,151 +1,56 @@
+import { GameView } from "@/components/game/GameView";
+import { useState } from "react";
 import { StyleSheet } from "react-native";
 import { ThemedView } from "@/components/ThemedView";
-import { PlayerView } from "@/components/game/player/PlayerView";
-import { useEffect, useReducer } from "react";
-import { gameStateReducer } from "@/components/game/game-state/game-state.reducer";
-import { GameBoardView } from "@/components/game/board/GameBoardView";
-import { initGameState } from "@/components/game/game-state/game-state.util";
-import { ScoreBoardView } from "@/components/game/score/ScoreBoardView";
-import { PreviousTrickView } from "@/components/game/previous-trick/PreviousTrickView";
-import { ChooseTrumpModal } from "@/components/game/choose-trump/ChooseTrumpModal";
-import { isInTurn } from "@/components/game/player/player.util";
-import { TrumpContext } from "@/components/game/card/trump.context";
-import { TrickContext } from "@/components/game/board/trick.context";
-import { autoPlay } from "@/components/game/auto-play/auto-play";
-import { Debug } from "@/constants/Env";
-import { LeaderContext } from "@/components/game/player/leader.context";
 import { ThemedButton } from "@/components/ThemedButton";
+import { ThemedText } from "@/components/ThemedText";
+import { useThemeColor } from "@/hooks/useThemeColor";
 
 export default function GameScreen() {
-  const [gameState, dispatch] = useReducer(gameStateReducer, initGameState());
+  const [isInSession, setIsInSession] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (gameState.step.name === "init") dispatch({ type: "initialised" });
-  }, [gameState.step.name]);
+  const borderColor = useThemeColor(null, "text");
 
-  useEffect(() => {
-    if (Debug) console.log("GameState", gameState);
-    autoPlay(gameState, dispatch);
-  }, [gameState]);
+  if (!isInSession)
+    return (
+      <ThemedView style={[styles.container]}>
+        <ThemedView style={[styles.sessionSelectionContainer, { borderColor }]}>
+          <ThemedText type={"subtitle"}>
+            🛜 Local session (on the same local network) 🛜
+          </ThemedText>
+          <ThemedButton label={"Create room"}></ThemedButton>
+          <ThemedButton label={"Join room"}></ThemedButton>
+        </ThemedView>
 
-  return (
-    <TrickContext
-      value={gameState.step.name === "play" ? gameState.step.trick : null}
-    >
-      <TrumpContext
-        value={gameState.step.name === "play" ? gameState.step.trump : null}
-      >
-        <LeaderContext
-          value={gameState.step.name === "play" ? gameState.step.leader : null}
-        >
-          <ThemedView style={styles.container}>
-            <ChooseTrumpModal
-              gameState={gameState}
-              onChoose={(type, card) =>
-                dispatch({
-                  type: "trumpChoose",
-                  card,
-                  player: "bottom",
-                  trump: type,
-                })
-              }
-              onDeny={() => dispatch({ type: "trumpDeny" })}
-            ></ChooseTrumpModal>
-            <ThemedView style={styles.topRow}>
-              <PreviousTrickView
-                previousTrick={
-                  gameState.step.name === "play"
-                    ? gameState.step.trick.previousTrick
-                    : null
-                }
-              ></PreviousTrickView>
-              <PlayerView
-                player={gameState.players.top}
-                type="top"
-                inTurn={isInTurn(gameState, "top")}
-                onCardPlayed={(card) =>
-                  dispatch({ type: "playCard", player: "top", card })
-                }
-              ></PlayerView>
-              <ScoreBoardView
-                gameScores={gameState.scores}
-                roundScores={
-                  "scores" in gameState.step ? gameState.step.scores : null
-                }
-              ></ScoreBoardView>
-            </ThemedView>
-            <ThemedView style={styles.middleRow}>
-              <PlayerView
-                player={gameState.players.left}
-                type="left"
-                inTurn={isInTurn(gameState, "left")}
-                onCardPlayed={(card) =>
-                  dispatch({ type: "playCard", player: "left", card })
-                }
-              ></PlayerView>
-              <GameBoardView gameStep={gameState.step}></GameBoardView>
-              <PlayerView
-                player={gameState.players.right}
-                type="right"
-                inTurn={isInTurn(gameState, "right")}
-                onCardPlayed={(card) =>
-                  dispatch({ type: "playCard", player: "right", card })
-                }
-              ></PlayerView>
-            </ThemedView>
-            <ThemedView style={styles.bottomRow}>
-              <PlayerView
-                player={gameState.players.bottom}
-                type="bottom"
-                inTurn={isInTurn(gameState, "bottom")}
-                onCardPlayed={(card) =>
-                  dispatch({ type: "playCard", player: "bottom", card })
-                }
-              ></PlayerView>
-              <ThemedButton
-                label="Reset"
-                disabled={
-                  (gameState.step.name === "chooseTrump" &&
-                    gameState.step.turn !== "bottom") ||
-                  (gameState.step.name === "play" &&
-                    gameState.step.trick.turn !== "bottom")
-                }
-                onPress={() => dispatch({ type: "reset" })}
-              ></ThemedButton>
-            </ThemedView>
-          </ThemedView>
-        </LeaderContext>
-      </TrumpContext>
-    </TrickContext>
-  );
+        <ThemedView style={[styles.sessionSelectionContainer, { borderColor }]}>
+          <ThemedText type={"subtitle"}>
+            🌐 Remote session (over the internet) 🌐
+          </ThemedText>
+          <ThemedButton label={"Create room"}></ThemedButton>
+          <ThemedButton label={"Join room"}></ThemedButton>
+        </ThemedView>
+      </ThemedView>
+    );
+
+  return <GameView></GameView>; // TODO: add session params as input.
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "column",
+    width: "100%",
     height: "100%",
-    width: "100%",
-    paddingLeft: 10,
-    paddingRight: 10,
+    padding: 10,
+    flexDirection: "column",
+    gap: 10,
   },
-  topRow: {
-    width: "100%",
-    height: "25%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  middleRow: {
-    width: "100%",
-    height: "50%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  bottomRow: {
-    width: "100%",
-    height: "25%",
+  sessionSelectionContainer: {
+    padding: 10,
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    gap: 10,
+    borderWidth: 2,
+    borderRadius: 10,
+    borderStyle: "dashed",
   },
 });
