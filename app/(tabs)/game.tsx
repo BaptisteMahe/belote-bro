@@ -21,6 +21,7 @@ export default function GameScreen() {
           <LocalRoomModal
             visible={localModalVisible}
             hosting={hosting}
+            onClose={() => setLocalModalVisible(false)}
           ></LocalRoomModal>
         )}
         <ThemedView style={[styles.container]}>

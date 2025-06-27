@@ -69,8 +69,8 @@ export function ScoreComputerView() {
         <ThemedButton
           label={"Add"}
           onPress={() => {
-            setScores([
-              ...scores,
+            setScores((previousScores) => [
+              ...previousScores,
               {
                 us: isNaN(usNum) ? 0 : usNum,
                 them: isNaN(themNum) ? 0 : themNum,

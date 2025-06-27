@@ -42,3 +42,7 @@ yarn-error.*
 # Prebuild
 /android
 /ios
+
+# Build outputs
+*.apk
+*.tar.gz

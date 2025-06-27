@@ -32,7 +32,9 @@ export function ThemedButton({
       ]}
       {...otherProps}
     >
-      <ThemedText style={[{ color }, { textAlign: "center" }]}>
+      <ThemedText
+        style={[{ color: color ?? borderColor }, { textAlign: "center" }]}
+      >
         {label}
       </ThemedText>
     </Pressable>

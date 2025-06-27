@@ -5,6 +5,11 @@
   "jest": {
     "preset": "jest-expo"
   },
+  "react-native": {
+    "net": "react-native-tcp-socket",
+    "tls": "react-native-tcp-socket",
+    "fs": "react-native-tcp-socket"
+  },
   "scripts": {
     "typecheck": "tsc --noEmit",
     "build:android:dev": "eas build --platform android --profile development --local",
@@ -34,6 +39,7 @@
     "expo-haptics": "~14.1.4",
     "expo-image": "~2.3.0",
     "expo-linking": "~7.1.5",
+    "expo-network": "~7.1.5",
     "expo-router": "~5.1.1",
     "expo-splash-screen": "~0.30.9",
     "expo-status-bar": "~2.2.3",
@@ -47,6 +53,7 @@
     "react-native-reanimated": "~3.17.4",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.11.1",
+    "react-native-tcp-socket": "^6.3.0",
     "react-native-web": "~0.20.0",
     "react-native-webview": "13.13.5",
     "react-native-zeroconf": "^0.13.8"
