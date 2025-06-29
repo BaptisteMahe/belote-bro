@@ -1,4 +1,4 @@
-import { Animated, Modal, StyleSheet, View } from "react-native";
+import { Animated, StyleSheet } from "react-native";
 import { ThemedView, ThemedViewProps } from "@/components/ThemedView";
 import { useEffect, useState } from "react";
 import {
@@ -8,12 +8,12 @@ import {
   SERVICE_PROTOCOL,
   SERVICE_TYPE,
   zeroconf,
-} from "@/components/networking/local/zeroconf.constants";
+} from "@/components/networking/local/zeroconf";
 import { Service } from "react-native-zeroconf";
 import { ThemedText } from "@/components/ThemedText";
 import TcpSocket from "react-native-tcp-socket";
-import { getIpAddressAsync } from "expo-network";
 import Server from "react-native-tcp-socket/lib/types/Server";
+import { ThemedModal } from "@/components/ThemedModal";
 
 export type LocalRoomModalProps = ThemedViewProps & {
   hosting: boolean;
@@ -32,7 +32,6 @@ export function LocalRoomModal({
     { content: string; type: "info" | "success" | "error" }[]
   >([]);
   const [resolvedService, setResolvedService] = useState<Service | null>(null);
-  const [ipAddress, setIpAddress] = useState<string | null>(null);
 
   const addLog = (
     message: string,
@@ -80,7 +79,6 @@ export function LocalRoomModal({
     }).listen({ port: SERVICE_PORT });
 
     server.on("listening", () => {
-      addLog(`Started TCP server at ${ipAddress}:${SERVICE_PORT}`);
       addLog(`TCP server: ${JSON.stringify(server.address())}`);
     });
 
@@ -173,10 +171,6 @@ export function LocalRoomModal({
   }, []);
 
   useEffect(() => {
-    getIpAddressAsync().then(setIpAddress);
-  }, []);
-
-  useEffect(() => {
     if (hosting || !resolvedService) return;
     const tcpClient = createTCPClient(resolvedService.addresses[0]);
 
@@ -186,52 +180,47 @@ export function LocalRoomModal({
   }, [hosting, resolvedService]);
 
   return (
-    <Modal animationType="slide" transparent={true} visible={visible}>
-      <View style={[style, styles.modal]}>
-        <ThemedView style={[style, styles.container]} {...rest}>
-          <ThemedView style={styles.logContainer}>
-            <ThemedText
-              type={"subtitle"}
-              style={[{ textAlign: "center" }]}
-              onPress={onClose}
-            >
-              Finding other players... Ip: {ipAddress}
-            </ThemedText>
-            <Animated.ScrollView style={styles.logScrollView}>
-              {logs.map((log, index) => (
-                <ThemedText
-                  style={[
-                    log.type !== "info" && { fontWeight: "bold" },
-                    log.type === "success" && { color: "green" },
-                    log.type === "error" && { color: "red" },
-                  ]}
-                  key={index}
-                >
-                  {log.content}
-                </ThemedText>
-              ))}
-            </Animated.ScrollView>
-          </ThemedView>
-        </ThemedView>
-      </View>
-    </Modal>
+    <ThemedModal visible={visible} {...rest}>
+      <ThemedView style={styles.logContainer}>
+        <ThemedText
+          type={"subtitle"}
+          style={[{ textAlign: "center" }]}
+          onPress={onClose}
+        >
+          Finding other players...
+          <LogsView logs={logs}></LogsView>
+        </ThemedText>
+      </ThemedView>
+    </ThemedModal>
+  );
+}
+
+export function LogsView({
+  logs,
+}: {
+  logs: { date: Date; content: string; type: "info" | "error" | "success" }[];
+}) {
+  return (
+    <Animated.ScrollView style={styles.logScrollView}>
+      {[...logs]
+        .sort((a, b) => a.date.getTime() - b.date.getTime())
+        .map((log) => (
+          <ThemedText
+            style={[
+              log.type !== "info" && { fontWeight: "bold" },
+              log.type === "success" && { color: "green" },
+              log.type === "error" && { color: "red" },
+            ]}
+            key={log.date.getTime()}
+          >
+            [{log.date.toLocaleTimeString()}] {log.content}
+          </ThemedText>
+        ))}
+    </Animated.ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  modal: {
-    width: "100%",
-    height: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  container: {
-    borderWidth: 2,
-    borderRadius: 10,
-    borderColor: "gray",
-    padding: 10,
-  },
   logContainer: {
     flexDirection: "column",
     gap: 10,

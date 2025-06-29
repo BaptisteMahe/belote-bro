@@ -17,13 +17,12 @@ export default function GameScreen() {
   if (!isInSession)
     return (
       <>
-        {localModalVisible && (
-          <LocalRoomModal
-            visible={localModalVisible}
-            hosting={hosting}
-            onClose={() => setLocalModalVisible(false)}
-          ></LocalRoomModal>
-        )}
+        <LocalRoomModal
+          visible={localModalVisible}
+          hosting={hosting}
+          onClose={() => setLocalModalVisible(false)}
+        ></LocalRoomModal>
+
         <ThemedView style={[styles.container]}>
           <ThemedView
             style={[styles.sessionSelectionContainer, { borderColor }]}

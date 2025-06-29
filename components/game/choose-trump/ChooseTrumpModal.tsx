@@ -1,4 +1,4 @@
-import { Modal, StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { ThemedView, ThemedViewProps } from "@/components/ThemedView";
 import {
   ChooseTrumpGameStep,
@@ -13,6 +13,7 @@ import {
 } from "@/components/game/card/card.model";
 import { ThemedButton } from "@/components/ThemedButton";
 import { isRed } from "@/components/game/card/card.util";
+import { ThemedModal } from "@/components/ThemedModal";
 
 export type ChooseTrumpModalProps = ThemedViewProps & {
   gameState: GameState;
@@ -28,37 +29,31 @@ export function ChooseTrumpModal({
   ...rest
 }: ChooseTrumpModalProps) {
   return (
-    <Modal
-      animationType="slide"
-      transparent={true}
+    <ThemedModal
       visible={
         gameState.step.name === "chooseTrump" &&
         gameState.step.turn === "bottom"
       }
       onRequestClose={onDeny}
+      style={[style, styles.container]}
+      {...rest}
     >
-      <View style={[style, styles.modal]}>
-        <ThemedView style={[style, styles.container]} {...rest}>
-          {gameState.step.name === "chooseTrump" &&
-            gameState.step.round === 0 && (
-              <ModalContentFirstRound
-                gameStep={gameState.step}
-                onChoose={onChoose}
-                onDeny={onDeny}
-              ></ModalContentFirstRound>
-            )}
+      {gameState.step.name === "chooseTrump" && gameState.step.round === 0 && (
+        <ModalContentFirstRound
+          gameStep={gameState.step}
+          onChoose={onChoose}
+          onDeny={onDeny}
+        ></ModalContentFirstRound>
+      )}
 
-          {gameState.step.name === "chooseTrump" &&
-            gameState.step.round === 1 && (
-              <ModalContentSecondRound
-                gameStep={gameState.step}
-                onChoose={onChoose}
-                onDeny={onDeny}
-              ></ModalContentSecondRound>
-            )}
-        </ThemedView>
-      </View>
-    </Modal>
+      {gameState.step.name === "chooseTrump" && gameState.step.round === 1 && (
+        <ModalContentSecondRound
+          gameStep={gameState.step}
+          onChoose={onChoose}
+          onDeny={onDeny}
+        ></ModalContentSecondRound>
+      )}
+    </ThemedModal>
   );
 }
 
@@ -114,21 +109,10 @@ function ModalContentSecondRound({
 }
 
 const styles = StyleSheet.create({
-  modal: {
-    width: "100%",
-    height: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
   container: {
     display: "flex",
     flexDirection: "row",
     gap: 10,
-    borderWidth: 2,
-    borderRadius: 10,
-    borderColor: "gray",
-    padding: 10,
   },
   buttonsContainer: {
     display: "flex",
