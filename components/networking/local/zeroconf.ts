@@ -1,5 +1,6 @@
 import Zeroconf, { Service } from "react-native-zeroconf";
 import { useEffect, useState } from "react";
+import { Log } from "@/components/networking/local/modal/LogsView";
 
 export const zeroconf = new Zeroconf();
 
@@ -7,12 +8,10 @@ export const SERVICE_TYPE = "belote-bro-game";
 export const SERVICE_NAME = "belote-bro-game:room";
 export const SERVICE_PROTOCOL = "tcp";
 export const SERVICE_DOMAIN = "local.";
-export const SERVICE_PORT = 66001;
+export const SERVICE_PORT = 6601;
 
 export function useZeroconfServicePublisher() {
-  const [logs, setLogs] = useState<
-    { date: Date; content: string; type: "info" | "success" | "error" }[]
-  >([]);
+  const [logs, setLogs] = useState<Log[]>([]);
 
   function addLog(
     message: string,
@@ -40,7 +39,7 @@ export function useZeroconfServicePublisher() {
     addLog(`Start publishing Zeroconf service: ${SERVICE_NAME}`);
     zeroconf
       .on("published", (service) => {
-        addLog(`Zeroconf service published: ${service}`);
+        addLog(`Zeroconf service published: ${JSON.stringify(service)}`);
       })
       .on("unpublished", () => {
         addLog(`Zeroconf service unpublished: ${SERVICE_NAME}`);

@@ -1,11 +1,13 @@
 import { Animated } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 
-export function LogsView({
-  logs,
-}: {
-  logs: { date: Date; content: string; type: "info" | "error" | "success" }[];
-}) {
+export type Log = {
+  date: Date;
+  content: string;
+  type: "info" | "error" | "success";
+};
+
+export function LogsView({ logs }: { logs: Log[] }) {
   return (
     <Animated.ScrollView style={[{ flexDirection: "column" }]}>
       {[...logs]

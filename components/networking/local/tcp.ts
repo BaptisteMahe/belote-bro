@@ -3,11 +3,10 @@ import TcpSocket from "react-native-tcp-socket";
 import { SERVICE_PORT } from "@/components/networking/local/zeroconf";
 import Server from "react-native-tcp-socket/lib/types/Server";
 import Socket from "react-native-tcp-socket/lib/types/Socket";
+import { Log } from "@/components/networking/local/modal/LogsView";
 
 export function useTcpServer() {
-  const [logs, setLogs] = useState<
-    { date: Date; content: string; type: "info" | "success" | "error" }[]
-  >([]);
+  const [logs, setLogs] = useState<Log[]>([]);
 
   const [server] = useState<Server>(TcpSocket.createServer());
   const [clients, setClients] = useState<Socket[]>([]);

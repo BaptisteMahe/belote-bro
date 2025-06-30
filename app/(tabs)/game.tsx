@@ -5,7 +5,8 @@ import { ThemedView } from "@/components/ThemedView";
 import { ThemedButton } from "@/components/ThemedButton";
 import { ThemedText } from "@/components/ThemedText";
 import { useThemeColor } from "@/hooks/useThemeColor";
-import { LocalRoomModal } from "@/components/networking/local/LocalRoomModal";
+import { HostLocalRoomModal } from "@/components/networking/local/modal/HostLocalRoomModal";
+import { JoinLocalRoomModal } from "@/components/networking/local/modal/JoinLocalRoomModal";
 
 export default function GameScreen() {
   const [isInSession, setIsInSession] = useState<boolean>(false);
@@ -17,11 +18,19 @@ export default function GameScreen() {
   if (!isInSession)
     return (
       <>
-        <LocalRoomModal
-          visible={localModalVisible}
-          hosting={hosting}
-          onClose={() => setLocalModalVisible(false)}
-        ></LocalRoomModal>
+        {localModalVisible && hosting && (
+          <HostLocalRoomModal
+            visible={localModalVisible && hosting}
+            onClose={(server) => setLocalModalVisible(false)}
+          ></HostLocalRoomModal>
+        )}
+
+        {localModalVisible && !hosting && (
+          <JoinLocalRoomModal
+            visible={localModalVisible && hosting}
+            onClose={(client) => setLocalModalVisible(false)}
+          ></JoinLocalRoomModal>
+        )}
 
         <ThemedView style={[styles.container]}>
           <ThemedView

@@ -7,6 +7,7 @@ import { useTcpClient } from "@/components/networking/local/tcp";
 import { LocalClient } from "@/components/networking/local/local-client.model";
 import { useEffect } from "react";
 import { LogsView } from "@/components/networking/local/modal/LogsView";
+import { useUser } from "@/components/user/user.hook";
 
 type JoinLocalRoomModalProps = ThemedViewProps & {
   visible: boolean;
@@ -19,6 +20,7 @@ export function JoinLocalRoomModal({
   ...rest
 }: JoinLocalRoomModalProps) {
   const [zeroconfLogs, scan, resolvedService] = useZeroconfServiceScanner();
+  const user = useUser();
 
   const [tcpClientLogs, client] = useTcpClient(
     resolvedService
@@ -32,16 +34,14 @@ export function JoinLocalRoomModal({
   useEffect(() => scan(), []);
 
   useEffect(() => {
-    client?.write(
+    if (!client || client.pending || client.connecting || !user) return;
+    client.write(
       JSON.stringify({
         type: "playerIdentifier",
-        user: {
-          id: "string",
-          name: "string",
-        },
+        user,
       }),
     );
-  }, [client]);
+  }, [client, user]);
 
   return (
     <ThemedModal visible={visible} {...rest}>
@@ -51,9 +51,9 @@ export function JoinLocalRoomModal({
           style={[{ textAlign: "center" }]}
           onPress={() => onClose(null)}
         >
-          Finding other players...
-          <LogsView logs={[...zeroconfLogs, ...tcpClientLogs]}></LogsView>
+          Joining new game...
         </ThemedText>
+        <LogsView logs={[...zeroconfLogs, ...tcpClientLogs]}></LogsView>
       </ThemedView>
     </ThemedModal>
   );
@@ -64,5 +64,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     gap: 10,
     padding: 10,
+    width: "80%",
   },
 });

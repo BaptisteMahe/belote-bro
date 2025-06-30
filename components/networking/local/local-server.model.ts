@@ -5,10 +5,16 @@ import { GameState } from "@/components/game/game-state/game-state.model";
 export type LocalServer = {
   server: Server;
   players: {
-    right: Socket;
-    top: Socket;
-    left: Socket;
+    right: LocalClientUser;
+    top: LocalClientUser;
+    left: LocalClientUser;
   };
+};
+
+export type LocalClientUser = {
+  id: string;
+  name: string;
+  socket: Socket;
 };
 
 export type ServerMessages = GameStateUpdateMessage;
