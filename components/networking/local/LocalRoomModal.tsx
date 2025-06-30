@@ -1,4 +1,4 @@
-import { Animated, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { ThemedView, ThemedViewProps } from "@/components/ThemedView";
 import { useEffect, useState } from "react";
 import {
@@ -14,6 +14,7 @@ import { ThemedText } from "@/components/ThemedText";
 import TcpSocket from "react-native-tcp-socket";
 import Server from "react-native-tcp-socket/lib/types/Server";
 import { ThemedModal } from "@/components/ThemedModal";
+import { LogsView } from "@/components/networking/local/modal/LogsView";
 
 export type LocalRoomModalProps = ThemedViewProps & {
   hosting: boolean;
@@ -195,38 +196,10 @@ export function LocalRoomModal({
   );
 }
 
-export function LogsView({
-  logs,
-}: {
-  logs: { date: Date; content: string; type: "info" | "error" | "success" }[];
-}) {
-  return (
-    <Animated.ScrollView style={styles.logScrollView}>
-      {[...logs]
-        .sort((a, b) => a.date.getTime() - b.date.getTime())
-        .map((log) => (
-          <ThemedText
-            style={[
-              log.type !== "info" && { fontWeight: "bold" },
-              log.type === "success" && { color: "green" },
-              log.type === "error" && { color: "red" },
-            ]}
-            key={log.date.getTime()}
-          >
-            [{log.date.toLocaleTimeString()}] {log.content}
-          </ThemedText>
-        ))}
-    </Animated.ScrollView>
-  );
-}
-
 const styles = StyleSheet.create({
   logContainer: {
     flexDirection: "column",
     gap: 10,
     padding: 10,
-  },
-  logScrollView: {
-    flexDirection: "column",
   },
 });

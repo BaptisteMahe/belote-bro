@@ -1,12 +1,12 @@
 import { ThemedModal } from "@/components/ThemedModal";
 import { ThemedView, ThemedViewProps } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
-import { LogsView } from "@/components/networking/local/LocalRoomModal";
 import { StyleSheet } from "react-native";
 import { useZeroconfServiceScanner } from "@/components/networking/local/zeroconf";
 import { useTcpClient } from "@/components/networking/local/tcp";
 import { LocalClient } from "@/components/networking/local/local-client.model";
 import { useEffect } from "react";
+import { LogsView } from "@/components/networking/local/modal/LogsView";
 
 type JoinLocalRoomModalProps = ThemedViewProps & {
   visible: boolean;
