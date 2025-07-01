@@ -38,13 +38,23 @@ export function ChooseTeamModal({
     right: users[2],
   });
 
+  const [activeDraggableId, setActiveDraggableId] = useState<string | null>(
+    null,
+  );
+
   return (
-    <ThemedModal visible={visible} {...rest} style={[style, styles.modal]}>
+    <ThemedModal visible={visible} style={[style, styles.modal]} {...rest}>
       <GestureHandlerRootView>
-        <DropProvider>
+        <DropProvider
+          onDragStart={(player: LocalClientUser) =>
+            setActiveDraggableId(player.id)
+          }
+          onDragEnd={() => setActiveDraggableId(null)}
+        >
           <ThemedView style={[styles.playerContainer]}>
             <ThemedView style={[styles.topRow]}>
               <Droppable<LocalClientUser>
+                style={[{ zIndex: 1 }]}
                 dropAlignment={"center"}
                 droppableId={"top"}
                 onDrop={(player) =>
@@ -53,13 +63,18 @@ export function ChooseTeamModal({
                   )
                 }
               >
-                <Draggable draggableId={players.top.id} data={players.top}>
+                <Draggable
+                  key={players.top.id}
+                  draggableId={players.top.id}
+                  data={players.top}
+                >
                   <UserView user={players.top}></UserView>
                 </Draggable>
               </Droppable>
             </ThemedView>
             <ThemedView style={[styles.middleRow]}>
               <Droppable<LocalClientUser>
+                style={[{ zIndex: 1 }]}
                 droppableId={"left"}
                 dropAlignment={"center"}
                 onDrop={(player) =>
@@ -68,12 +83,17 @@ export function ChooseTeamModal({
                   )
                 }
               >
-                <Draggable draggableId={players.left.id} data={players.left}>
+                <Draggable
+                  key={players.left.id}
+                  draggableId={players.left.id}
+                  data={players.left}
+                >
                   <UserView user={players.left}></UserView>
                 </Draggable>
               </Droppable>
 
               <Droppable<LocalClientUser>
+                style={[{ zIndex: 1 }]}
                 dropAlignment={"center"}
                 droppableId={"right"}
                 onDrop={(player) =>
@@ -82,7 +102,11 @@ export function ChooseTeamModal({
                   )
                 }
               >
-                <Draggable draggableId={players.right.id} data={players.right}>
+                <Draggable
+                  key={players.right.id}
+                  draggableId={players.right.id}
+                  data={players.right}
+                >
                   <UserView user={players.right}></UserView>
                 </Draggable>
               </Droppable>
@@ -95,14 +119,14 @@ export function ChooseTeamModal({
       </GestureHandlerRootView>
 
       <ThemedButton
-        label={"Validate"}
+        label={"Start game"}
         onPress={() => onClose(players)}
       ></ThemedButton>
     </ThemedModal>
   );
 }
 
-function onDropPlayer(
+export function onDropPlayer(
   players: LocalServer["players"],
   dropped: { player: LocalClientUser; position: "top" | "left" | "right" },
 ) {
@@ -115,7 +139,7 @@ function onDropPlayer(
   return {
     ...players,
     [dropped.position]: dropped.player,
-    [draggedFrom]: players[dropped.position]!,
+    [draggedFrom]: players[dropped.position],
   };
 }
 
@@ -124,7 +148,11 @@ function UserView({ user }: { user: Omit<LocalClientUser, "socket"> }) {
 
   return (
     <ThemedView style={[styles.user]}>
-      <IconSymbol name={"character.circle"} color={color}></IconSymbol>
+      <IconSymbol
+        name={"character.circle"}
+        color={color}
+        size={48}
+      ></IconSymbol>
       <ThemedText>{user.name}</ThemedText>
     </ThemedView>
   );
@@ -157,7 +185,9 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     borderWidth: 1,
-    padding: 5,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     borderRadius: 15,
+    zIndex: 2000,
   },
 });
