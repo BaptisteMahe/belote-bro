@@ -2,14 +2,11 @@ import { GameState } from "@/components/game/game-state/game-state.model";
 import { GameAction } from "@/components/game/actions/game-actions.model";
 import { canPlayCard } from "@/components/game/card/can-play-card";
 import { sleep } from "@/utils/sleep";
-import { AutoPlay } from "@/constants/Env";
 
 export async function autoPlay(
   gameState: GameState,
   dispatch: (action: GameAction) => void,
 ) {
-  if (!AutoPlay) return;
-
   if (gameState.step.name === "chooseTrump") {
     if (gameState.step.turn === "bottom") return;
 

@@ -1,7 +1,7 @@
 import { useEffect, useReducer } from "react";
 import { gameStateReducer } from "@/components/game/game-state/game-state.reducer";
 import { initGameState } from "@/components/game/game-state/game-state.util";
-import { Debug } from "@/constants/Env";
+import { AutoPlay, Debug } from "@/constants/Env";
 import { autoPlay } from "@/components/game/auto-play/auto-play";
 import { TrickContext } from "@/components/game/board/trick.context";
 import { TrumpContext } from "@/components/game/card/trump.context";
@@ -25,7 +25,7 @@ export function GameView() {
 
   useEffect(() => {
     if (Debug) console.log("GameState", gameState);
-    autoPlay(gameState, dispatch);
+    if (!AutoPlay) autoPlay(gameState, dispatch);
   }, [gameState]);
 
   return (

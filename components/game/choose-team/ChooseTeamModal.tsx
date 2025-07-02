@@ -38,30 +38,32 @@ export function ChooseTeamModal({
     right: users[2],
   });
 
-  const [activeDraggableId, setActiveDraggableId] = useState<string | null>(
-    null,
-  );
+  function handleDrop(
+    player: LocalClientUser,
+    position: "top" | "left" | "right",
+  ) {
+    setPlayers(
+      onDropPlayer(players, {
+        player,
+        position,
+      }),
+    );
+  }
 
   return (
     <ThemedModal visible={visible} style={[style, styles.modal]} {...rest}>
+      <ThemedText style={{ padding: 10 }} type={"title"}>
+        Choose team (by dragging players)
+      </ThemedText>
       <GestureHandlerRootView>
-        <DropProvider
-          onDragStart={(player: LocalClientUser) =>
-            setActiveDraggableId(player.id)
-          }
-          onDragEnd={() => setActiveDraggableId(null)}
-        >
+        <DropProvider>
           <ThemedView style={[styles.playerContainer]}>
             <ThemedView style={[styles.topRow]}>
               <Droppable<LocalClientUser>
                 style={[{ zIndex: 1 }]}
                 dropAlignment={"center"}
                 droppableId={"top"}
-                onDrop={(player) =>
-                  setPlayers((players) =>
-                    onDropPlayer(players, { player, position: "top" }),
-                  )
-                }
+                onDrop={(player) => handleDrop(player, "top")}
               >
                 <Draggable
                   key={players.top.id}
@@ -77,11 +79,7 @@ export function ChooseTeamModal({
                 style={[{ zIndex: 1 }]}
                 droppableId={"left"}
                 dropAlignment={"center"}
-                onDrop={(player) =>
-                  setPlayers((players) =>
-                    onDropPlayer(players, { player, position: "left" }),
-                  )
-                }
+                onDrop={(player) => handleDrop(player, "left")}
               >
                 <Draggable
                   key={players.left.id}
@@ -96,11 +94,7 @@ export function ChooseTeamModal({
                 style={[{ zIndex: 1 }]}
                 dropAlignment={"center"}
                 droppableId={"right"}
-                onDrop={(player) =>
-                  setPlayers((players) =>
-                    onDropPlayer(players, { player, position: "right" }),
-                  )
-                }
+                onDrop={(player) => handleDrop(player, "right")}
               >
                 <Draggable
                   key={players.right.id}
@@ -128,11 +122,11 @@ export function ChooseTeamModal({
 
 export function onDropPlayer(
   players: LocalServer["players"],
-  dropped: { player: LocalClientUser; position: "top" | "left" | "right" },
+  dropped: { player: LocalClientUser; position: keyof LocalServer["players"] },
 ) {
   const draggedFrom = Object.entries(players).find(
     ([_, player]) => player.id === dropped.player.id,
-  )?.[0] as "top" | "left" | "right" | undefined;
+  )?.[0] as keyof LocalServer["players"] | undefined;
 
   if (!draggedFrom) return players;
 
@@ -162,6 +156,9 @@ const styles = StyleSheet.create({
   modal: {
     flexDirection: "column",
     justifyContent: "center",
+    alignItems: "center",
+    height: "50%",
+    gap: 100,
   },
   playerContainer: {
     flexDirection: "column",
