@@ -32,6 +32,15 @@ bun run test
 ## Todo list:
 
 - [X] Make UI for local networking on game tab
-- [ ] Try out `react-native-zeroconf` for local networking
+- [X] Try out `react-native-zeroconf` for local networking
 - [ ] Build server and client modes for the game engine
 - [ ] Tests out with multiple devices
+- [ ] Add unit tests for UI
+- [ ] Add unit tests for networking
+- [ ] Refactor networking / game state manipulation
+- [ ] Fix UI for last card of trick
+- [ ] Better Deck handling (keeping state from tricks)
+- [ ] Design remote play
+- [ ] Build go server
+- [ ] Build remote networking
+- [ ] Abstract Remote / Local networking to the same typesafe pattern

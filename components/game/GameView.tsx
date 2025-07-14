@@ -15,17 +15,27 @@ import { ScoreBoardView } from "@/components/game/score/ScoreBoardView";
 import { GameBoardView } from "@/components/game/board/GameBoardView";
 import { ThemedButton } from "@/components/ThemedButton";
 import { StyleSheet } from "react-native";
+import { GameAction } from "@/components/game/actions/game-actions.model";
 
-export function GameView() {
+export function GameView({
+  onAction,
+}: {
+  onAction: (action: GameAction) => void;
+}) {
   const [gameState, dispatch] = useReducer(gameStateReducer, initGameState());
 
+  function act(action: GameAction) {
+    onAction(action);
+    dispatch(action);
+  }
+
   useEffect(() => {
-    if (gameState.step.name === "init") dispatch({ type: "initialised" });
+    if (gameState.step.name === "init") act({ type: "initialised" });
   }, [gameState.step.name]);
 
   useEffect(() => {
     if (Debug) console.log("GameState", gameState);
-    if (!AutoPlay) autoPlay(gameState, dispatch);
+    if (!AutoPlay) autoPlay(gameState, act);
   }, [gameState]);
 
   return (
@@ -42,14 +52,14 @@ export function GameView() {
             <ChooseTrumpModal
               gameState={gameState}
               onChoose={(type, card) =>
-                dispatch({
+                act({
                   type: "trumpChoose",
                   card,
                   player: "bottom",
                   trump: type,
                 })
               }
-              onDeny={() => dispatch({ type: "trumpDeny" })}
+              onDeny={() => act({ type: "trumpDeny" })}
             ></ChooseTrumpModal>
             <ThemedView style={styles.topRow}>
               <PreviousTrickView
@@ -64,7 +74,7 @@ export function GameView() {
                 type="top"
                 inTurn={isInTurn(gameState, "top")}
                 onCardPlayed={(card) =>
-                  dispatch({ type: "playCard", player: "top", card })
+                  act({ type: "playCard", player: "top", card })
                 }
               ></PlayerView>
               <ScoreBoardView
@@ -80,7 +90,7 @@ export function GameView() {
                 type="left"
                 inTurn={isInTurn(gameState, "left")}
                 onCardPlayed={(card) =>
-                  dispatch({ type: "playCard", player: "left", card })
+                  act({ type: "playCard", player: "left", card })
                 }
               ></PlayerView>
               <GameBoardView gameStep={gameState.step}></GameBoardView>
@@ -89,7 +99,7 @@ export function GameView() {
                 type="right"
                 inTurn={isInTurn(gameState, "right")}
                 onCardPlayed={(card) =>
-                  dispatch({ type: "playCard", player: "right", card })
+                  act({ type: "playCard", player: "right", card })
                 }
               ></PlayerView>
             </ThemedView>
@@ -99,7 +109,7 @@ export function GameView() {
                 type="bottom"
                 inTurn={isInTurn(gameState, "bottom")}
                 onCardPlayed={(card) =>
-                  dispatch({ type: "playCard", player: "bottom", card })
+                  act({ type: "playCard", player: "bottom", card })
                 }
               ></PlayerView>
               <ThemedButton

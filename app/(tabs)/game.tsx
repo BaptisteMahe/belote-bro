@@ -7,28 +7,39 @@ import { ThemedText } from "@/components/ThemedText";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { HostLocalRoomModal } from "@/components/networking/local/modal/HostLocalRoomModal";
 import { JoinLocalRoomModal } from "@/components/networking/local/modal/JoinLocalRoomModal";
+import { LocalServer } from "@/components/networking/local/local-server.model";
+import { LocalClient } from "@/components/networking/local/local-client.model";
 
 export default function GameScreen() {
-  const [isInSession, setIsInSession] = useState<boolean>(false);
-  const [localModalVisible, setLocalModalVisible] = useState<boolean>(false);
-  const [hosting, setHosting] = useState<boolean>(false);
+  const [localModalVisible, setLocalModalVisible] = useState<
+    "host" | "join" | null
+  >(null);
+
+  const [server, setServer] = useState<LocalServer | null>(null);
+  const [client, setClient] = useState<LocalClient | null>(null);
 
   const borderColor = useThemeColor(null, "text");
 
-  if (!isInSession)
+  if (!server && !client)
     return (
       <>
-        {localModalVisible && hosting && (
+        {localModalVisible === "host" && (
           <HostLocalRoomModal
-            visible={localModalVisible && hosting}
-            onClose={(server) => setLocalModalVisible(false)}
+            visible={localModalVisible === "host"}
+            onClose={(server) => {
+              setLocalModalVisible(null);
+              setServer(server);
+            }}
           ></HostLocalRoomModal>
         )}
 
-        {localModalVisible && !hosting && (
+        {localModalVisible === "join" && (
           <JoinLocalRoomModal
-            visible={localModalVisible && hosting}
-            onClose={(client) => setLocalModalVisible(false)}
+            visible={localModalVisible === "join"}
+            onClose={(client) => {
+              setLocalModalVisible(null);
+              setClient(client);
+            }}
           ></JoinLocalRoomModal>
         )}
 
@@ -41,17 +52,11 @@ export default function GameScreen() {
             </ThemedText>
             <ThemedButton
               label={"Create room"}
-              onPress={() => {
-                setHosting(true);
-                setLocalModalVisible(true);
-              }}
+              onPress={() => setLocalModalVisible("host")}
             ></ThemedButton>
             <ThemedButton
               label={"Join room"}
-              onPress={() => {
-                setHosting(false);
-                setLocalModalVisible(true);
-              }}
+              onPress={() => setLocalModalVisible("join")}
             ></ThemedButton>
           </ThemedView>
 
@@ -59,10 +64,10 @@ export default function GameScreen() {
             style={[styles.sessionSelectionContainer, { borderColor }]}
           >
             <ThemedText type={"subtitle"}>
-              🌐 Remote session (over the internet) 🌐
+              🌐 Remote session (over the internet) 🌐-{">"} Yet to be developed
             </ThemedText>
-            <ThemedButton label={"Create room"}></ThemedButton>
-            <ThemedButton label={"Join room"}></ThemedButton>
+            <ThemedButton label={"Create room"} disabled={true}></ThemedButton>
+            <ThemedButton label={"Join room"} disabled={true}></ThemedButton>
           </ThemedView>
         </ThemedView>
       </>
